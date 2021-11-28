@@ -33,7 +33,7 @@ class TestUsersCase:
         report_step_setting(test_params[name])
 
         test_params[name].parametrize = data
-        result, self.extract, validate = SendRequest(test_params[name], self.extract).send_request()
+        self.extract = SendRequest(test_params[name], self.extract).send_request()
 
         # 报告上展示的测试标题等
         report_setting(test_params[name])
@@ -48,11 +48,11 @@ class TestUsersCase:
         report_step_setting(test_params[name].case_step_1)
 
         # 登录接口
-        result, self.extract, validate = SendRequest(test_params[name].case_step_1, self.extract).send_request()
+        self.extract = SendRequest(test_params[name].case_step_1, self.extract).send_request()
 
         report_step_setting(test_params[name])
         test_params[name].parametrize = data
-        result, self.extract, validate = SendRequest(test_params[name], self.extract).send_request()
+        self.extract = SendRequest(test_params[name], self.extract).send_request()
 
         # 报告上展示的测试标题等
         report_setting(test_params[name])
@@ -64,10 +64,10 @@ class TestUsersCase:
         report_step_setting(test_data.case_step_1)
 
         # 登录接口
-        result, self.extract, validate = SendRequest(test_data.case_step_1, self.extract).send_request()
+        self.extract = SendRequest(test_data.case_step_1, self.extract).send_request()
 
         report_step_setting(test_data.case_step_2)
-        result, self.extract, validate = SendRequest(test_data.case_step_2, self.extract).send_request()
+        self.extract = SendRequest(test_data.case_step_2, self.extract).send_request()
 
         # 报告上展示的测试标题等
         report_setting(test_data.case_step_2)

@@ -53,4 +53,4 @@ class SendRequest:
         result = self.send.request(url=url, method=method, headers=headers, params=params, body=body, files=upload)
         validators_result(result, validate)  # 断言
         self.extract.update(extract_variables(result.response.json(), extract, self.extract))
-        return result, self.extract, validate
+        return self.extract
