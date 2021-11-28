@@ -163,7 +163,7 @@ def parametrize_validate(parametrize):
     return validate, params
 
 
-def httprunner_extract(res, field: str) -> str:
+def default_extract(res, field: str) -> str:
     """
     默认获取返回值中同期望字段的值
     :param res:
@@ -176,14 +176,14 @@ def httprunner_extract(res, field: str) -> str:
             real_field = res[field]
         else:
             for value in res.values():
-                httprunner_extract(value, field)
+                default_extract(value, field)
     elif isinstance(res, list):
         for key in res:
-            httprunner_extract(key, field)
+            default_extract(key, field)
     return real_field
 
 
-def validators_result(result, validate):
+def validators_result(result, validate: list):
     """
     断言
     :param result:
@@ -216,7 +216,7 @@ def validators_result(result, validate):
             elif path:
                 check_field = jsonpath(response, path)
             else:
-                check_field = httprunner_extract(response, check)
+                check_field = default_extract(response, check)
             logger.info(f"断言方式：{comparator} 断言字段：{check} ==>> 断言值：{expect} ==>> 期望值：{check_field}")
             expect = expect if isinstance(expect, str) else str(expect)
             if comparator == "equal":
