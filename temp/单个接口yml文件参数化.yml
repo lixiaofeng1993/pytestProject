@@ -1,0 +1,35 @@
+test_register_user_case:
+  path: /register
+  method: post
+  headers:
+  validate: &validate
+    - [ comparator: equal, check: msg, expect: "恭喜，注册成功！", jsonpath: "$.msg" ]
+  validate_username: &validate_username
+    - [ comparator: equal, check: msg, expect: "用户名/密码/手机号不能为空，请检查！！！", jsonpath: "$.msg" ]
+  validate_username_exit: &validate_username_exit
+    - [ comparator: contains, check: msg, expect: "用户名已存在", jsonpath: "$.msg" ]
+  validate_phone: &validate_phone
+    - [ comparator: contains, check: msg, expect: "手机号格式不正确", jsonpath: "$.msg" ]
+  validate_sex: &validate_sex
+    - [ comparator: contains, check: msg, expect: "输入的性别只能是 0(男) 或 1(女)", jsonpath: "$.msg" ]
+  validate_phone_exit: &validate_phone_exit
+    - [ comparator: contains, check: msg, expect: "手机号已被注册", jsonpath: "$.msg" ]
+  parametrize:
+    - [ username: __name, password: "123456", sex: "__random_int(0, 1)",  telephone: __phone, address: __address, validate: *validate ]
+    - [ username: "", password: "123456", sex: "__random_int(0, 1)",  telephone: __phone, address: __address, validate: *validate_username ]
+    - [ username: sql_one_user, password: "123456", sex: "__random_int(0, 1)",  telephone: __phone, address: __address, validate: *validate_username_exit ]
+    - [ username: __name, password: "123456", sex: "__random_int(0, 1)",  telephone: __random_int, address: __address, validate: *validate_phone ]
+    - [ username: __name, password: "123456", sex: "__random_int(2, 9)",  telephone: __phone, address: __address, validate: *validate_sex ]
+    - [ username: __name, password: "123456", sex: "__random_int(0, 1)",  telephone: sql_one_phone, address: __address, validate: *validate_phone_exit ]
+  params:
+  upload:
+  extract:
+  story: 用例-注册接口
+  title: 注册接口
+  step: 注册接口测试
+  description: 该用例是针对 注册接口 的测试
+sql:
+  sql_one_user: SELECT u.username from `user` u LIMIT 1
+  sql_one_phone: SELECT u.telephone from `user` u LIMIT 1
+epic: 用户数据测试
+feature: 测试Demo

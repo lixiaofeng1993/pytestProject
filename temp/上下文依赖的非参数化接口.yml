@@ -1,0 +1,42 @@
+test_all_user_case:
+  case_step_1:
+    path: /login
+    method: post
+    headers:
+    parametrize:
+    params:
+    body:
+      username: sql_one_user
+      password: "123456"
+    upload:
+    extract:
+      token: $.login_info.token
+      username: $.login_info.username
+    validate:
+      - [ comparator: equal, check: msg, expect: "恭喜，登录成功！", jsonpath: "$.msg" ]
+      - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
+    story: 用例-登录接口
+    title: 登录接口
+    step: 登录接口测试
+    description: 该用例是针对 登录接口 的测试
+  case_step_2:
+    path: /users
+    method: get
+    headers:
+      token: $token
+      username: $username
+    parametrize:
+    params:
+    body:
+    upload:
+    validate:
+      - [ comparator: equal, check: msg, expect: "查询成功", jsonpath: "$.msg" ]
+      - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
+    story: 用例-查询所有用户信息接口
+    title: 查询所有用户信息接口
+    step: 查询所有用户信息接口
+    description: 该用例是针对 查询所有用户信息接口 的测试
+sql:
+  sql_one_user: SELECT u.username from `user` u LIMIT 1
+epic: 用户数据测试
+feature: 测试Demo

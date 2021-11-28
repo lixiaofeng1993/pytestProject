@@ -1,0 +1,16 @@
+# python env
+/.pytest/
+# pytest cache
+/.pytest_cache/
+# 日志文件
+*.log
+# report
+/report/
+
+/__pycache__/
+/.idea/
+
+# git rm -r --cached .
+# git add .
+# git commit -m "update ..gitignore"
+# git push

@@ -1,0 +1,98 @@
+test_register_user_case:
+  path: /register
+  method: post
+  headers:
+  parametrize: ${parametrize_register.csv}
+  params:
+  upload:
+  extract:
+  story: 用例-注册接口
+  title: 注册接口
+  step: 注册接口测试
+  description: 该用例是针对 注册接口 的测试
+
+test_one_user_case:
+  case_step_1:
+    path: /login
+    method: post
+    headers:
+    parametrize:
+    params:
+    body:
+      username: sql_one_user
+      password: "123456"
+    upload:
+    extract:
+      token: $.login_info.token
+      username: $.login_info.username
+    validate:
+      - [ comparator: equal, check: msg, expect: "恭喜，登录成功！", jsonpath: "$.msg" ]
+      - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
+    story: 用例-登录接口
+    title: 登录接口
+    step: 登录接口测试
+    description: 该用例是针对 登录接口 的测试
+  path: /get/user
+  method: get
+  headers:
+    token: $token
+    username: $username
+  validate: &validate
+    - [ comparator: equal, check: msg, expect: "查询成功", jsonpath: "$.msg" ]
+    - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
+  validate_username: &validate_username
+    - [ comparator: equal, check: msg, expect: "查不到相关用户的信息", jsonpath: "$.msg" ]
+    - [ comparator: equal, check: code, expect: 1004, jsonpath: "$.code" ]
+  parametrize:
+    - [ username: sql_one_user, validate: *validate ]
+    - [ username: __name, validate: *validate_username ]
+  params:
+  upload:
+  extract:
+  story: 用例-查询指定用户信息接口
+  title: 查询指定用户信息接口
+  step: 查询指定用户信息接口测试
+  description: 该用例是针对 查询指定用户信息接口 的测试
+test_all_user_case:
+  case_step_1:
+    path: /login
+    method: post
+    headers:
+    parametrize:
+    params:
+    body:
+      username: sql_one_user
+      password: "123456"
+    upload:
+    extract:
+      token: $.login_info.token
+      username: $.login_info.username
+    validate:
+      - [ comparator: equal, check: msg, expect: "恭喜，登录成功！", jsonpath: "$.msg" ]
+      - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
+    story: 用例-登录接口
+    title: 登录接口
+    step: 登录接口测试
+    description: 该用例是针对 登录接口 的测试
+  case_step_2:
+    path: /users
+    method: get
+    headers:
+      token: $token
+      username: $username
+    parametrize:
+    params:
+    body:
+    upload:
+    validate:
+      - [ comparator: equal, check: msg, expect: "查询成功", jsonpath: "$.msg" ]
+      - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
+    story: 用例-查询所有用户信息接口
+    title: 查询所有用户信息接口
+    step: 查询所有用户信息接口
+    description: 该用例是针对 查询所有用户信息接口 的测试
+sql:
+  sql_one_user: SELECT u.username from `user` u LIMIT 1
+  sql_one_phone: SELECT u.telephone from `user` u LIMIT 1
+epic: 用户数据测试
+feature: 测试Demo
