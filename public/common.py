@@ -267,4 +267,44 @@ def validators_result(result, validate):
                 else:
                     check_field = check_field if isinstance(check_field, str) else str(check_field)
                     assert check_field.endswith(expect), error_msg(check)
+            elif comparator == "greater_than":
+                if isinstance(check_field, list):
+                    for field in check_field:
+                        field = str(field) if not isinstance(field, str) else field
+                        assert field > expect, error_msg(check)
+                else:
+                    check_field = check_field if isinstance(check_field, str) else str(check_field)
+                    assert check_field > expect, error_msg(check)
+            elif comparator == "less_than":
+                if isinstance(check_field, list):
+                    for field in check_field:
+                        field = str(field) if not isinstance(field, str) else field
+                        assert field < expect, error_msg(check)
+                else:
+                    check_field = check_field if isinstance(check_field, str) else str(check_field)
+                    assert check_field < expect, error_msg(check)
+            elif comparator == "greater_or_equals":
+                if isinstance(check_field, list):
+                    for field in check_field:
+                        field = str(field) if not isinstance(field, str) else field
+                        assert field >= expect, error_msg(check)
+                else:
+                    check_field = check_field if isinstance(check_field, str) else str(check_field)
+                    assert check_field >= expect, error_msg(check)
+            elif comparator == "less_or_equals":
+                if isinstance(check_field, list):
+                    for field in check_field:
+                        field = str(field) if not isinstance(field, str) else field
+                        assert field <= expect, error_msg(check)
+                else:
+                    check_field = check_field if isinstance(check_field, str) else str(check_field)
+                    assert check_field <= expect, error_msg(check)
+            elif comparator == "regex_match":
+                if isinstance(check_field, list):
+                    for field in check_field:
+                        field = str(field) if not isinstance(field, str) else field
+                        assert re.match(expect, field), error_msg(check)
+                else:
+                    check_field = check_field if isinstance(check_field, str) else str(check_field)
+                    assert re.match(expect, check_field), error_msg(check)
             logger.info(f"断言成功！")

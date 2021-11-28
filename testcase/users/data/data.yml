@@ -53,6 +53,7 @@ test_one_user_case:
   title: 查询指定用户信息接口
   step: 查询指定用户信息接口测试
   description: 该用例是针对 查询指定用户信息接口 的测试
+
 test_all_user_case:
   case_step_1:
     path: /login
@@ -68,8 +69,8 @@ test_all_user_case:
       token: $.login_info.token
       username: $.login_info.username
     validate:
-      - [ comparator: equal, check: msg, expect: "恭喜，登录成功！", jsonpath: "$.msg" ]
-      - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
+      - [ comparator: regex_match, check: msg, expect: "恭喜，登录成功！", jsonpath: "$.msg" ]
+      - [ comparator: regex_match, check: code, expect: 0, jsonpath: "$.code" ]
     story: 用例-登录接口
     title: 登录接口
     step: 登录接口测试
