@@ -24,12 +24,11 @@
 ## 新增用例步骤
 
 * 在 testcase/ 目录下新建对应页面的目录
-    * eg：baseInfo/
-* 在 baseInfo/ 目录下新建页面 continentInfo/ 大洲信息 页面目录
-* 在 continentInfo/ 目录下新建 data/ 目录 和 接口测试用例 py 文件
+    * eg：users/
+* 在 users/ 目录下新建 data/ 目录 和 接口测试用例 py 文件
     * data/ 目录下包含
         * data.yml 文件
-            * **命名是唯一的，continentInfo/ 目录下可以多个测试用例 py 文件对应一个 data.yml**
+            * **命名是唯一的，users/ 目录下可以多个测试用例 py 文件对应一个 data.yml**
             * **测试用例 py 文件中的 方法名称，在 data.yml 中必须有对应的一级目录<最外层命名>**
             * data.yml 格式可以参考 tools/ 目录下
                 * 上下文依赖的非参数化接口.yml
@@ -59,8 +58,8 @@
         def setup_class(self):
             self.extract = {}  # 全局变量
     
-        @pytest.mark.parametrize("data", test_params["test_page_query_case"].parametrize)  # pytest参数化装饰器
-        def test_page_query_case(self, data):
+        @pytest.mark.parametrize("data", test_params["test_register_user_case"].parametrize)  # pytest参数化装饰器
+        def test_register_user_case(self, data):
             logger.info("*************** 开始执行用例 ***************")
             # 获取执行用例函数名
             name = fun_name()
@@ -92,7 +91,7 @@
         def setup_class(self):
             self.extract = {}  # 全局变量
     
-        def test_page_query_case(self, test_data):
+        def test_all_user_case(self, test_data):
             logger.info("*************** 开始执行用例 ***************")
             # 报告展示的测试步骤
             report_step_setting(test_data)
