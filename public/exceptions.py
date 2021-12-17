@@ -50,3 +50,8 @@ class InterfaceRequestError(MyBaseError):
 class CSVFormatError(MyBaseError):
     """csv文件数据格式异常"""
     pass
+
+
+class NotEmptyError(MyBaseError):
+    """字段非空判断"""
+    pass

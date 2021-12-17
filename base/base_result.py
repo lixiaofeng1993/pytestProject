@@ -29,11 +29,10 @@ class BaseResult:
         self.status_code = response.status_code
         if response.status_code == 200:
             self.success = True
-            try:
-                self.text = self.response.json()
-            except Exception as error:
-                self.text = self.response.text
         else:
-            self.text = self.response.text
             self.error = "接口返回码是 {}，返回信息：{}".format(self.status_code, response.text)
+        try:
+            self.text = self.response.json()
+        except Exception as error:
+            self.text = self.response.content
         return self

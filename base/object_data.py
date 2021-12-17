@@ -10,49 +10,35 @@
 from public.case_step import *
 
 
-def object_data(test_data: dict, file_path: str):
+def object_data(test_data: dict, file_path: str, case_step_num=10):
     """
     封装测试数据为对象
     :param test_data: 测试数据
     :param file_path: 测试数据文件路径
+    :param case_step_num: 测试用例依赖接口数量
     :return: 字典包含的数据对象
     """
-    _data = dict()
-    flag = False
-    case_step_key = ["case_step_1", "case_step_2", "case_step_3", "case_step_4", "case_step_5"]
+    obj = dict()
+    case_step_list = list()
+    case_step_num = int(case_step_num) if str(case_step_num).isdigit() else 10
+    case_step_num = 10 if case_step_num < 10 else case_step_num
+    for i in range(1, case_step_num + 1):
+        case_step_list.append(f"case_step_{i}")
     for keys, values in test_data.items():
-        _data[keys] = {}
+        obj[keys] = ObjectData()
         if isinstance(values, dict):
-            for ori_key in values.keys():
-                if ori_key not in case_step_key:
-                    flag = True
-                if values.get("path") and values.get("method"):
-                    flag = False  # 参数化存在依赖的情况，只能走这里
-            if not flag:
-                _data[keys] = ObjectData()
-                if values.get("path") and values.get("method"):
-                    case_step(_data[keys], values, file_path)
-                for key, value in values.items():
-                    if isinstance(value, dict):
-                        if value.get("path") and value.get("method"):
-                            if key == "case_step_1":
-                                case_step_1(_data[keys], value, file_path)
-                            elif key == "case_step_2":
-                                case_step_2(_data[keys], value, file_path)
-                            elif key == "case_step_3":
-                                case_step_3(_data[keys], value, file_path)
-                            elif key == "case_step_4":
-                                case_step_4(_data[keys], value, file_path)
-                            elif key == "case_step_5":
-                                case_step_5(_data[keys], value, file_path)
-            else:
-                for key, value in values.items():
-                    if isinstance(value, dict):
-                        if value.get("path") and value.get("method"):
-                            _data[keys][key] = ObjectData()
-                            case_step(_data[keys][key], value, file_path)
-    _data.update({
+            for key, value in values.items():
+                setattr(obj[keys], key, value)
+                setattr(obj[keys], "file_path", file_path)
+                if isinstance(value, dict):
+                    step = CaseStep()
+                    for k, v in value.items():
+                        setattr(step, k, v)
+                        setattr(step, "file_path", file_path)
+                    if key in case_step_list:
+                        setattr(obj[keys], key, step)
+    obj.update({
         "epic": test_data.get("epic"),
         "feature": test_data.get("feature")
     })
-    return _data
+    return obj

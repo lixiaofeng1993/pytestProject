@@ -21,9 +21,33 @@ from public.read_data import ReadFileData
 from requests_toolbelt import MultipartEncoder
 
 
-def query_replace_variable(value, variables, data_value, key=None, data_type="str", file_path=None):
+def replace_variable(real_value, patt_value, data_value, value, key=None):
     """
     替换上下文依赖和查询数据库的值
+    :param real_value: 遍历后值是字符串
+    :param patt_value: 正则匹配到的值
+    :param data_value: 遍历的测试数据
+    :param key: 遍历的测试数据是字典的情况
+    :param value: 遍历后值是字符串
+    :return: 替换后的数据
+    """
+    if real_value:
+        var_value = real_value if isinstance(real_value, str) else str(real_value)
+        if isinstance(data_value, dict):
+            data_value[key] = data_value[key].replace(patt_value, var_value, 1)
+        elif isinstance(data_value, list):
+            index = data_value.index(patt_value)
+            data_value.remove(value)
+            data_value.insert(index, var_value)
+        if isinstance(data_value, str):
+            data_value = data_value.replace(patt_value, var_value, 1)
+        logger.info(f"提取替换的数据 ==>> {patt_value} -> {var_value}")
+        return data_value
+
+
+def query_replace_variable(value, variables, data_value, key=None, data_type="str", file_path=None):
+    """
+    查询上下文依赖和数据库的值
     :param value: 遍历后值是字符串
     :param variables: 需要查询替换的变量
     :param data_value: 遍历的测试数据
@@ -32,14 +56,13 @@ def query_replace_variable(value, variables, data_value, key=None, data_type="st
     :param file_path: csv参数化文件路径
     :return: 替换后的数据
     """
-    variable_regexp = r"(\$[\w_]+)"
+    variable_regexp = r"(\$[\w_\+]+)"
     csv_regexp = r"\${([\w_\.csv]+)}"
     patt = re.findall(variable_regexp, value)
     csv_patt = re.findall(csv_regexp, value)
     real_value = ""
-    patt_value = ""
     if csv_patt:
-        for csv_value in csv_patt:
+        for csv_value in csv_patt:  # csv参数化数据替换
             if csv_value:
                 _value_list = csv_value.split(".")
                 if _value_list[-1] != "csv":
@@ -51,7 +74,7 @@ def query_replace_variable(value, variables, data_value, key=None, data_type="st
             logger.info(f"提取替换的数据 ==>> {key} -> {real_value}")
             return data_value
     elif variables:
-        if "sql_" in value:
+        if "sql_" in value:  # sql查询替换
             if value[:3] != "sql":
                 sql_regexp = r"(sql_[\w_]+)"
                 value = re.findall(sql_regexp, value)[0] if re.findall(sql_regexp, value) else None
@@ -61,24 +84,14 @@ def query_replace_variable(value, variables, data_value, key=None, data_type="st
                 sql = variables[value]
                 real_value = db.execute_db(sql, data_type=data_type)
                 patt_value = value
+                data_value = replace_variable(real_value, patt_value, data_value, value, key)
             except Exception as error:
                 raise exceptions.QuerySqlError(f"查询sql命名或者对应关系错误 ==>> {error}")
         elif patt:
             for patt_value in patt:
                 _value = patt_value.strip("$")
-                if _value:
-                    real_value = variables.get(_value)
-        if real_value:
-            var_value = real_value if isinstance(real_value, str) else str(real_value)
-            if isinstance(data_value, dict):
-                data_value[key] = data_value[key].replace(patt_value, var_value)
-            elif isinstance(data_value, list):
-                index = data_value.index(patt_value)
-                data_value.remove(value)
-                data_value.insert(index, var_value)
-            if isinstance(data_value, str):
-                data_value = data_value.replace(patt_value, var_value)
-            logger.info(f"提取替换的数据 ==>> {patt_value} -> {var_value}")
+                real_value = variables.get(_value)
+                data_value = replace_variable(real_value, patt_value, data_value, value, key)
         return data_value
 
 
@@ -181,6 +194,17 @@ def default_extract(res, field: str) -> str:
         for key in res:
             default_extract(key, field)
     return real_field
+
+
+def not_empty(date):
+    """
+    关键字段值不为空判断
+    :param date:
+    :return:
+    """
+    if date:
+        return date
+    raise exceptions.NotEmptyError("YAML数据字段不能为空！")
 
 
 def validators_result(result, validate: list):

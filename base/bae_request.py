@@ -20,31 +20,35 @@ class BaseRequest:
     def __init__(self):
         self.session = requests.session()
 
-    def request(self, url: str, method: str, headers: dict, params: dict, body: dict, files=None) -> BaseResult:
+    def request(self, url: str, method: str, headers: dict, params: dict, data: str, json: dict,
+                files=None) -> BaseResult:
         """
         requests 请求封装
         :param url: 完整的url地址
         :param method: 请求方式
         :param headers: 请求头
         :param params: get请求传参
-        :param body: 请求体
+        :param data: 请求体
+        :param json: 请求体
         :param files: 上传文件对象
         :return: 自定义 BaseResult 对象
         """
         params = parse.urlencode(params, quote_via=parse.quote) if params else {}  # get请求参数 urlencode 转码
-        data = files if files else {}
+        if files:
+            data = files
         logger.info("接口请求地址 ==>> {}".format(url))
         logger.info("接口请求方式 ==>> {}".format(method))
         # Python3中，json在做dumps操作时，会将中文转换成unicode编码，因此设置 ensure_ascii=False
         logger.info("接口请求头 ==>> {}".format(alias_json.dumps(headers, indent=4, ensure_ascii=False)))
         logger.info("接口请求 params 参数 ==>> {}".format(alias_json.dumps(params, indent=4, ensure_ascii=False)))
-        logger.info("接口请求体 body 参数 ==>> {}".format(alias_json.dumps(body, indent=4, ensure_ascii=False)))
-        logger.info("接口上传附件 files 参数 ==>> {}".format(data))
+        logger.info(f"接口请求体 data 参数 ==>> {data}")
+        logger.info("接口请求体 json 参数 ==>> {}".format(alias_json.dumps(json, indent=4, ensure_ascii=False)))
+        logger.info("接口上传附件 files 参数 ==>> {}".format(files))
 
         urllib3.disable_warnings()  # 忽略警告
         try:
             response = self.session.request(url=url, method=method, headers=headers, params=params, data=data,
-                                            json=body, verify=False)
+                                            json=json, verify=False)
             result = BaseResult().default_assert(response)
             # result = BaseResult().default_assert(Response())
             logger.info(f"接口返回信息 ==>> {result.text}")
