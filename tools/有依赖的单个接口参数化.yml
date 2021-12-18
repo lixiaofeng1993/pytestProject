@@ -5,7 +5,7 @@ test_one_user_case:
     headers:
     parametrize:
     params:
-    body:
+    json:
       username: sql_one_user
       password: "123456"
     upload:
