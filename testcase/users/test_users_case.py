@@ -24,67 +24,26 @@ class TestUsersCase:
     def setup_class(self):
         self.extract = {}
 
-    # @pytest.mark.parametrize("data", test_params["test_register_user_case"].parametrize)
-    # def test_register_user_case(self, data):
-    #     logger.info("*************** 开始执行用例 ***************")
-    #     # 获取执行用例函数名
-    #     name = fun_name()
-    #     # 报告展示的测试步骤
-    #     report_step_setting(test_params[name])
-    #
-    #     test_params[name].parametrize = data
-    #     result, self.extract = SendRequest(test_params[name], self.extract).send_request()
-    #
-    #     # 报告上展示的测试标题等
-    #     report_setting(test_params[name])
-    #     logger.info("*************** 结束执行用例 ***************\n")
-
-    @pytest.mark.parametrize("data", test_params["test_one_user_case"].parametrize)
-    def test_one_user_case(self, data):
-        logger.info("*************** 开始执行用例 ***************")
-        # 获取执行用例函数名
-        name = fun_name()
-        # 报告展示的测试步骤
-        report_step_setting(test_params[name].case_step_1)
-
-        # 登录接口
-        result, self.extract = SendRequest(test_params[name].case_step_1, self.extract).send_request()
-
-        report_step_setting(test_params[name])
-        test_params[name].parametrize = data
-        result, self.extract = SendRequest(test_params[name], self.extract).send_request()
-
-        # 报告上展示的测试标题等
-        report_setting(test_params[name])
-        logger.info("*************** 结束执行用例 ***************\n")
-
-    def test_all_user_case(self, test_data):
+    def test_user_login_case(self, test_data):
         logger.info("*************** 开始执行用例 ***************")
         # 报告展示的测试步骤
-        report_step_setting(test_data.case_step_1)
+        report_step_setting(test_data)
         # 登录接口
-        result, self.extract = SendRequest(test_data.case_step_1, self.extract).send_request()
-
-        report_step_setting(test_data.case_step_2)
-        result, self.extract = SendRequest(test_data.case_step_2, self.extract).send_request()
+        result, self.extract = SendRequest(test_data, self.extract).send_request()
 
         # 报告上展示的测试标题等
-        report_setting(test_data.case_step_2)
+        report_setting(test_data)
         logger.info("*************** 结束执行用例 ***************\n")
 
-    def test_delete_user_case(self, test_data):
+    def test_user_me_case(self, test_data):
         logger.info("*************** 开始执行用例 ***************")
+        # 报告展示的测试步骤
+        report_step_setting(test_data)
 
-        report_step_setting(test_data.case_step_1)
-        result, self.extract = SendRequest(test_data.case_step_1, self.extract).send_request()
+        result, self.extract = SendRequest(test_data, self.extract).send_request()
 
-        report_step_setting(test_data.case_step_2)
-        result, self.extract = SendRequest(test_data.case_step_2, self.extract).send_request()
-
-        report_step_setting(test_data.case_step_3)
-        result, self.extract = SendRequest(test_data.case_step_3, self.extract).send_request()
-
-        report_setting(test_data.case_step_3)
+        # 报告上展示的测试标题等
+        report_setting(test_data)
         logger.info("*************** 结束执行用例 ***************\n")
 
 

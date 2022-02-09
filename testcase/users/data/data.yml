@@ -1,155 +1,37 @@
-#test_register_user_case:
-#  path: /register
-#  method: post
-#  headers:
-#  parametrize: ${parametrize_register.csv}
-#  params:
-#  upload:
-#  extract:
-#  story: 用例-注册接口
-#  title: 注册接口
-#  step: 注册接口测试
-#  description: 该用例是针对 注册接口 的测试
-
-test_one_user_case:
-  case_step_1:
-    path: /users/login
-    method: post
-    headers:
-    parametrize:
-    params:
-    json:
-      username: sql_one_user
-      password: "123456"
-    upload:
-    extract:
-      token: $.login_info.token
-      username: $.login_info.username
-    validate:
-      - [ comparator: equal, check: msg, expect: "恭喜，登录成功！", jsonpath: "$.msg" ]
-      - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
-    story: 用例-登录接口
-    title: 登录接口
-    step: 登录接口测试
-    description: 该用例是针对 登录接口 的测试
-  path: /get/user
-  method: get
+test_user_login_case:
+  path: /users/login
+  method: post
   headers:
-    token: $token
-    username: $username
-  validate: &validate
-    - [ comparator: equal, check: msg, expect: "查询成功", jsonpath: "$.msg" ]
-    - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
-  validate_username: &validate_username
-    - [ comparator: equal, check: msg, expect: "查不到相关用户的信息", jsonpath: "$.msg" ]
-    - [ comparator: equal, check: code, expect: 1004, jsonpath: "$.code" ]
   parametrize:
-    - [ username: sql_one_user, validate: *validate ]
-    - [ username: __name, validate: *validate_username ]
   params:
+  data:
+    username: lixiaofeng
+    password: "123456"
   upload:
   extract:
-  story: 用例-查询指定用户信息接口
-  title: 查询指定用户信息接口
-  step: 查询指定用户信息接口测试
-  description: 该用例是针对 查询指定用户信息接口 的测试
+    token: $.access_token
+    name: $.name
+  validate:
+    - [ comparator: equal, check: name, expect: lixiaofeng, jsonpath: "$.name" ]
+  story: 用例-登录接口
+  title: 登录接口
+  step: 登录接口测试
+  description: 该用例是针对 登录接口 的测试
 
-test_all_user_case:
-  case_step_1:
-    path: /login
-    method: post
-    headers:
-    parametrize:
-    params:
-    json:
-      username: sql_one_user
-      password: "123456"
-    upload:
-    extract:
-      token: $.login_info.token
-      username: $.login_info.username
-    validate:
-      - [ comparator: regex_match, check: msg, expect: "恭喜，登录成功！", jsonpath: "$.msg" ]
-      - [ comparator: regex_match, check: code, expect: 0, jsonpath: "$.code" ]
-    story: 用例-登录接口
-    title: 登录接口
-    step: 登录接口测试
-    description: 该用例是针对 登录接口 的测试
-  case_step_2:
-    path: /users
-    method: get
-    headers:
-      token: $token
-      username: $username
-    parametrize:
-    params:
-    upload:
-    validate:
-      - [ comparator: equal, check: msg, expect: "查询成功", jsonpath: "$.msg" ]
-      - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
-    story: 用例-查询所有用户信息接口
-    title: 查询所有用户信息接口
-    step: 查询所有用户信息接口
-    description: 该用例是针对 查询所有用户信息接口 的测试
-
-test_delete_user_case:
-  case_step_1:
-    path: /login
-    method: post
-    headers:
-    parametrize:
-    params:
-    json:
-      username: sql_one_user
-      password: "123456"
-    upload:
-    extract:
-      token: $.login_info.token
-      username: $.login_info.username
-    validate:
-      - [ comparator: equal, check: msg, expect: "恭喜，登录成功！", jsonpath: "$.msg" ]
-      - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
-    story: 用例-登录接口
-    title: 登录接口
-    step: 登录接口测试
-    description: 该用例是针对 登录接口 的测试
-  case_step_2:
-    path: /get/user
-    method: get
-    headers:
-      token: $token
-      username: $username
-    params:
-      username: sql_one_user_1
-    upload:
-    extract:
-      delete_username: $.data[0].username
-    validate:
-      - [ comparator: equal, check: msg, expect: "查询成功", jsonpath: "$.msg" ]
-      - [ comparator: equal, check: code, expect: 0, jsonpath: "$.code" ]
-    story: 用例-查询指定用户信息接口
-    title: 查询指定用户信息接口
-    step: 查询指定用户信息接口测试
-    description: 该用例是针对 查询指定用户信息接口 的测试
-  case_step_3:
-    path: /delete/user/one/
-    method: post
-    headers:
-      admin_user: $username
-      token: $token
-    data:
-      username: $delete_username
-    upload:
-    extract:
-    validate:
-      - [ comparator: equal, check: msg, expect: "恭喜，删除用户信息成功！", jsonpath: "$.msg" ]
-    story: 用例-删除指定用户信息接口
-    title: 删除指定用户信息接口
-    step: 删除指定用户信息接口
-    description: 该用例是针对 删除指定用户信息接口 的测试
+test_user_me_case:
+  path: /users/me
+  method: get
+  headers:
+    Authorization: Bearer $token
+  parametrize:
+  params:
+  upload:
+  validate:
+    - [ comparator: equal, check: name, expect: lixiaofeng, jsonpath: "$.name" ]
+  story: 用例-获取登录用户信息接口
+  title: 获取登录用户信息接口
+  step: 获取登录用户信息接口
+  description: 该用例是针对 获取登录用户信息接口 的测试
 sql:
-  sql_one_user: SELECT u.name from `users` u WHERE is_superuser = 1 LIMIT 1
-  sql_one_user_1: SELECT u.name from `users` u WHERE is_active = 1 LIMIT 1
-  sql_one_phone: SELECT u.email from `users` u LIMIT 1
-epic: 用户数据测试
-feature: 测试Demo
+epic: EasyTest项目
+feature: 用户接口

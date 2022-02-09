@@ -1,0 +1,25 @@
+[2022-02-09 18:33:27,704][read_data.py 37][INFO]: 加载 E:\project\pytestProject\testcase\users\data\data.yml 文件......
+[2022-02-09 18:33:27,708][read_data.py 43][INFO]: 读到数据 ==>>  {'test_user_login_case': {'path': '/users/login', 'method': 'post', 'headers': None, 'parametrize': None, 'params': None, 'data': {'username': 'lixiaofeng', 'password': '123456'}, 'upload': None, 'extract': {'token': '$.access_token', 'name': '$.name'}, 'validate': [[{'comparator': 'equal'}, {'check': 'name'}, {'expect': 'lixiaofeng'}, {'jsonpath': '$.name'}]], 'story': '用例-登录接口', 'title': '登录接口', 'step': '登录接口测试', 'description': '该用例是针对 登录接口 的测试'}, 'test_user_me_case': {'path': '/users/me', 'method': 'get', 'headers': {'Authorization': 'Bearer $token'}, 'parametrize': None, 'params': None, 'upload': None, 'validate': [[{'comparator': 'equal'}, {'check': 'name'}, {'expect': 'lixiaofeng'}, {'jsonpath': '$.name'}]], 'story': '用例-获取登录用户信息接口', 'title': '获取登录用户信息接口', 'step': '获取登录用户信息接口', 'description': '该用例是针对 获取登录用户信息接口 的测试'}, 'sql': None, 'epic': 'EasyTest项目', 'feature': '用户接口'} 
+[2022-02-09 18:33:27,709][read_data.py 67][INFO]: 加载 E:\project\pytestProject\config\setting.ini 文件......
+[2022-02-09 18:33:27,709][read_data.py 71][INFO]: 读到数据 ==>>  {'host': OrderedDict([('test_host', 'http://121.41.54.234'), ('host', '')]), 'variable': OrderedDict([('case_step_num', '10')]), 'mysql': OrderedDict([('MYSQL_HOST', '121.41.54.234'), ('MYSQL_PORT', '3306'), ('MYSQL_USER', 'fastapi'), ('MYSQL_PASSWD', '123456'), ('MYSQL_DB', 'fastapi')]), 'oracle': OrderedDict([('oracle_usr', ''), ('oracle_pwd', ''), ('oracle_dns', ''), ('oracle_port', '')])} 
+[2022-02-09 18:33:27,709][sql_to_data.py 41][INFO]: 更新后的数据：{'test_user_login_case': <public.case_step.ObjectData object at 0x0000024F064BC5C0>, 'test_user_me_case': <public.case_step.ObjectData object at 0x0000024F064BC278>, 'sql': <public.case_step.ObjectData object at 0x0000024F064BC550>, 'epic': 'EasyTest项目', 'feature': '用户接口'}
+[2022-02-09 18:33:27,711][test_users_case.py 39][INFO]: *************** 开始执行用例 ***************
+[2022-02-09 18:33:27,711][common.py 44][INFO]: 提取替换的数据 ==>> $token -> eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaXhpYW9mZW5nIiwiZXhwIjoxNjQ0NDA0NjA4fQ.MgOkcIfd45gT2LEtu3PbKvnd9MGKFO-neGviqhcke44
+[2022-02-09 18:33:27,711][read_data.py 67][INFO]: 加载 E:\project\pytestProject\config\setting.ini 文件......
+[2022-02-09 18:33:27,712][read_data.py 71][INFO]: 读到数据 ==>>  {'host': OrderedDict([('test_host', 'http://121.41.54.234'), ('host', '')]), 'variable': OrderedDict([('case_step_num', '10')]), 'mysql': OrderedDict([('MYSQL_HOST', '121.41.54.234'), ('MYSQL_PORT', '3306'), ('MYSQL_USER', 'fastapi'), ('MYSQL_PASSWD', '123456'), ('MYSQL_DB', 'fastapi')]), 'oracle': OrderedDict([('oracle_usr', ''), ('oracle_pwd', ''), ('oracle_dns', ''), ('oracle_port', '')])} 
+[2022-02-09 18:33:27,712][read_data.py 67][INFO]: 加载 E:\project\pytestProject\config\setting.ini 文件......
+[2022-02-09 18:33:27,713][read_data.py 71][INFO]: 读到数据 ==>>  {'host': OrderedDict([('test_host', 'http://121.41.54.234'), ('host', '')]), 'variable': OrderedDict([('case_step_num', '10')]), 'mysql': OrderedDict([('MYSQL_HOST', '121.41.54.234'), ('MYSQL_PORT', '3306'), ('MYSQL_USER', 'fastapi'), ('MYSQL_PASSWD', '123456'), ('MYSQL_DB', 'fastapi')]), 'oracle': OrderedDict([('oracle_usr', ''), ('oracle_pwd', ''), ('oracle_dns', ''), ('oracle_port', '')])} 
+[2022-02-09 18:33:27,713][bae_request.py 39][INFO]: 接口请求地址 ==>> http://121.41.54.234/users/me
+[2022-02-09 18:33:27,713][bae_request.py 40][INFO]: 接口请求方式 ==>> GET
+[2022-02-09 18:33:27,713][bae_request.py 42][INFO]: 接口请求头 ==>> {
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaXhpYW9mZW5nIiwiZXhwIjoxNjQ0NDA0NjA4fQ.MgOkcIfd45gT2LEtu3PbKvnd9MGKFO-neGviqhcke44"
+}
+[2022-02-09 18:33:27,714][bae_request.py 43][INFO]: 接口请求 params 参数 ==>> {}
+[2022-02-09 18:33:27,714][bae_request.py 44][INFO]: 接口请求体 data 参数 ==>> 
+[2022-02-09 18:33:27,714][bae_request.py 45][INFO]: 接口请求体 json 参数 ==>> {}
+[2022-02-09 18:33:27,714][bae_request.py 46][INFO]: 接口上传附件 files 参数 ==>> []
+[2022-02-09 18:33:27,801][bae_request.py 54][INFO]: 接口返回信息 ==>> {'name': 'lixiaofeng', 'zh_name': '超级管理员', 'email': '15235514553@163.com', 'description': '我是一个超级管理员', 'id': '2924bd4b819445f3898b4acec9acc633', 'is_delete': False, 'is_active': True, 'is_superuser': True, 'last_login': '2022-02-09 18:33:28', 'create_date': '2022-02-08 19:21:52'}
+[2022-02-09 18:33:27,801][common.py 244][INFO]: 断言方式：equal 断言字段：name ==>> 断言值：lixiaofeng ==>> 期望值：['lixiaofeng']
+[2022-02-09 18:33:27,802][common.py 334][INFO]: 断言成功！
+[2022-02-09 18:33:27,802][test_users_case.py 47][INFO]: *************** 结束执行用例 ***************
+
