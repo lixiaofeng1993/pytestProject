@@ -25,6 +25,10 @@ class SendRequest:
         self.extract.update(self.read.get_variable()) if not self.extract else self.extract
 
     def send_request(self):
+        variable = self.test_data.variable if self.test_data.variable else {}
+        # 加载测试数据中的固定变量
+        self.extract.update(variable)
+        # 非空判断， 请求方式转大写
         path = not_empty(self.test_data.path)
         method = not_empty(self.test_data.method).upper()
         headers = self.test_data.headers if self.test_data.headers else {}

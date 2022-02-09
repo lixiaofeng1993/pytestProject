@@ -25,6 +25,7 @@ class ObjectData:
         self.description = ""
         self.file_path = ""
         self.upload = {}
+        self.variable = {}
 
 
 class CaseStep:
@@ -45,3 +46,4 @@ class CaseStep:
         self.description = ""
         self.file_path = ""
         self.upload = {}
+        self.variable = {}

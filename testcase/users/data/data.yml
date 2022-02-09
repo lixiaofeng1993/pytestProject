@@ -32,6 +32,25 @@ test_user_me_case:
   title: 获取登录用户信息接口
   step: 获取登录用户信息接口
   description: 该用例是针对 获取登录用户信息接口 的测试
+
+test_user_register_case:
+  path: /users/register
+  method: post
+  variable:
+    query_name: sql_query_name
+    query_email: sql_query_email
+  headers:
+  parametrize: ${parametrize_register.csv}
+  params:
+  json:
+  upload:
+  validate:
+  story: 用例-获取登录用户信息接口
+  title: 获取登录用户信息接口
+  step: 获取登录用户信息接口
+  description: 该用例是针对 获取登录用户信息接口 的测试
 sql:
+  sql_query_name: select u.`name` FROM users u LIMIT 1
+  sql_query_email: select u.email FROM users u LIMIT 1
 epic: EasyTest项目
 feature: 用户接口

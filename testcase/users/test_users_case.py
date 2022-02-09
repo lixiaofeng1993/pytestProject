@@ -46,6 +46,23 @@ class TestUsersCase:
         report_setting(test_data)
         logger.info("*************** 结束执行用例 ***************\n")
 
+    @pytest.mark.parametrize("data", test_params["test_user_register_case"].parametrize)
+    def test_user_register_case(self, data):
+        logger.info("*************** 开始执行用例 ***************")
+        # 获取执行用例函数名
+        name = fun_name()
+        # 报告展示的测试步骤
+        report_step_setting(test_params[name])
+
+        # 重置测试数据
+        test_params[name].parametrize = data
+        # 发送接口请求，断言，返回提取变量字典
+        result, self.extract = SendRequest(test_params[name], self.extract).send_request()
+
+        # 报告上展示的测试标题等
+        report_setting(test_params[name])
+        logger.info("*************** 结束执行用例 ***************\n")
+
 
 if __name__ == '__main__':
     pytest.main(

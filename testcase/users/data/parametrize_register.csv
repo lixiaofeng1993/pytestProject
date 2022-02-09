@@ -1,7 +1,7 @@
-case_name,username,password,sex,telephone,address,,msg,code
-注册成功,__name,123456,"1",__phone, __address,,"{""comparator"": ""equal"",""expect"": ""恭喜，注册成功！"",""jsonpath"":""""}","{""comparator"": ""equal"",""expect"": ""0"",""jsonpath"":""""}"
-用户名/密码/手机号不能为空,,123456,"__random_int(0, 1)",__phone, __address,,"{""comparator"": ""equal"",""expect"": ""用户名/密码/手机号不能为空，请检查！！！"",""jsonpath"":""""}","{""comparator"": ""equal"",""expect"": ""2001"",""jsonpath"":""""}"
-用户名已存在,sql_one_user,123456,"__random_int(0, 1)",__phone, __address,,"{""comparator"": ""contains"",""expect"": ""用户名已存在"",""jsonpath"":""""}","{""comparator"": ""equal"",""expect"": ""2002"",""jsonpath"":""""}"
-手机号格式不正确,__name,123456,"__random_int(0, 1)",__random_int, __address,,"{""comparator"": ""contains"",""expect"": ""手机号格式不正确"",""jsonpath"":""""}","{""comparator"": ""equal"",""expect"": ""2004"",""jsonpath"":""""}"
-输入的性别格式错误,__name,123456,"__random_int(2, 9)",__phone, __address,,"{""comparator"": ""contains"",""expect"": ""输入的性别只能是 0(男) 或 1(女)"",""jsonpath"":""""}","{""comparator"": ""equal"",""expect"": ""2003"",""jsonpath"":""""}"
-手机号已被注册,__name,123456,"__random_int(0, 1)",sql_one_phone, __address,,"{""comparator"": ""contains"",""expect"": ""手机号已被注册"",""jsonpath"":""""}","{""comparator"": ""equal"",""expect"": ""2005"",""jsonpath"":""""}"
+case_name,name,zh_name,email,description,hashed_password,,status_code
+注册成功,__phone,__name,__email,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""200"",""jsonpath"":""""}"
+name字段不符合格式,,__name,__email,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""400"",""jsonpath"":""""}"
+zh_name字段不符合格式,__phone,,__email,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""400"",""jsonpath"":""""}"
+email字段不符合格式,__phone,__name,,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""400"",""jsonpath"":""""}"
+name字段已存在,$query_name,__name,__email,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""400"",""jsonpath"":""""}"
+email字段已存在,$query_name,__name,$query_email,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""400"",""jsonpath"":""""}"
