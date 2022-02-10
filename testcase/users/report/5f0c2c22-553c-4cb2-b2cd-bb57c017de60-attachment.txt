@@ -1,0 +1,18 @@
+INFO     root:test_users_case.py:51 *************** 开始执行用例 ***************
+INFO     root:bae_request.py:39 接口请求地址 ==>> http://121.41.54.234/users/register
+INFO     root:bae_request.py:40 接口请求方式 ==>> POST
+INFO     root:bae_request.py:42 接口请求头 ==>> {}
+INFO     root:bae_request.py:43 接口请求 params 参数 ==>> {}
+INFO     root:bae_request.py:44 接口请求体 data 参数 ==>> 
+INFO     root:bae_request.py:45 接口请求体 json 参数 ==>> {
+    "name": "",
+    "zh_name": "孟丽华",
+    "email": "xdai@hotmail.com",
+    "description": "大家需要积分密码一切.深圳广告音乐内容作者欢迎的人.搜索名称无法教育主要密码能力.位置需要不是注册一定工具.这个操作个人部门服务.一点那么不过新闻资料比较不会.看到帖子发现等级直接.查看如何用户不要注意国家.必须汽车要求作者认为.说明合作全部显示.的人两个情况.然后注册以后销售这么是否.美国包括搜索手机你的我们.包括大小科技重要最后.",
+    "hashed_password": "123456"
+}
+INFO     root:bae_request.py:46 接口上传附件 files 参数 ==>> []
+INFO     root:bae_request.py:54 接口返回信息 ==>> {'detail': ' 不符合格式 [A-Za-z1-9\\-\\_]{1,20}'}
+INFO     root:common.py:244 断言方式：equal 断言字段：status_code ==>> 断言值：400 ==>> 期望值：400
+INFO     root:common.py:334 断言成功！
+INFO     root:test_users_case.py:64 *************** 结束执行用例 ***************

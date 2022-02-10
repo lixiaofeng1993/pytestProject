@@ -1,0 +1,15 @@
+[2022-02-10 08:36:09,236][test_users_case.py 39][INFO]: *************** 开始执行用例 ***************
+[2022-02-10 08:36:09,236][bae_request.py 39][INFO]: 接口请求地址 ==>> http://121.41.54.234/users/me
+[2022-02-10 08:36:09,236][bae_request.py 40][INFO]: 接口请求方式 ==>> GET
+[2022-02-10 08:36:09,236][bae_request.py 42][INFO]: 接口请求头 ==>> {
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaXhpYW9mZW5nIiwiZXhwIjoxNjQ0NDU1MTcwfQ.X_sKGRCn6xg-QBQauvz__4VPIJywipVtXa6LbCSV24s"
+}
+[2022-02-10 08:36:09,236][bae_request.py 43][INFO]: 接口请求 params 参数 ==>> {}
+[2022-02-10 08:36:09,236][bae_request.py 44][INFO]: 接口请求体 data 参数 ==>> 
+[2022-02-10 08:36:09,236][bae_request.py 45][INFO]: 接口请求体 json 参数 ==>> {}
+[2022-02-10 08:36:09,236][bae_request.py 46][INFO]: 接口上传附件 files 参数 ==>> []
+[2022-02-10 08:36:09,314][bae_request.py 54][INFO]: 接口返回信息 ==>> {'name': 'lixiaofeng', 'zh_name': '超级管理员', 'email': '15235514553@163.com', 'description': '我是一个超级管理员', 'id': '2924bd4b819445f3898b4acec9acc633', 'is_delete': False, 'is_active': True, 'is_superuser': True, 'last_login': '2022-02-10 08:36:10', 'create_date': '2022-02-08 19:21:52'}
+[2022-02-10 08:36:09,314][common.py 244][INFO]: 断言方式：equal 断言字段：name ==>> 断言值：lixiaofeng ==>> 期望值：['lixiaofeng']
+[2022-02-10 08:36:09,314][common.py 334][INFO]: 断言成功！
+[2022-02-10 08:36:09,314][test_users_case.py 47][INFO]: *************** 结束执行用例 ***************
+

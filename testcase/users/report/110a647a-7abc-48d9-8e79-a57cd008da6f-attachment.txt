@@ -1,0 +1,14 @@
+INFO     root:test_users_case.py:28 *************** 开始执行用例 ***************
+INFO     root:bae_request.py:39 接口请求地址 ==>> http://121.41.54.234/users/login
+INFO     root:bae_request.py:40 接口请求方式 ==>> POST
+INFO     root:bae_request.py:42 接口请求头 ==>> {}
+INFO     root:bae_request.py:43 接口请求 params 参数 ==>> {}
+INFO     root:bae_request.py:44 接口请求体 data 参数 ==>> {'username': 'lixiaofeng', 'password': '123456'}
+INFO     root:bae_request.py:45 接口请求体 json 参数 ==>> {}
+INFO     root:bae_request.py:46 接口上传附件 files 参数 ==>> []
+INFO     root:bae_request.py:54 接口返回信息 ==>> {'name': 'lixiaofeng', 'zh_name': '超级管理员', 'email': '15235514553@163.com', 'description': '我是一个超级管理员', 'id': '2924bd4b819445f3898b4acec9acc633', 'is_delete': False, 'is_active': True, 'is_superuser': True, 'last_login': '2022-02-10 08:36:10', 'create_date': '2022-02-08 19:21:52', 'access_token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaXhpYW9mZW5nIiwiZXhwIjoxNjQ0NDU1MTcwfQ.X_sKGRCn6xg-QBQauvz__4VPIJywipVtXa6LbCSV24s'}
+INFO     root:common.py:244 断言方式：equal 断言字段：name ==>> 断言值：lixiaofeng ==>> 期望值：['lixiaofeng']
+INFO     root:common.py:334 断言成功！
+INFO     root:common.py:136 从返回值中提取的参数 路径 值 ==>> token:$.access_token -> ['eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaXhpYW9mZW5nIiwiZXhwIjoxNjQ0NDU1MTcwfQ.X_sKGRCn6xg-QBQauvz__4VPIJywipVtXa6LbCSV24s']
+INFO     root:common.py:136 从返回值中提取的参数 路径 值 ==>> name:$.name -> ['lixiaofeng']
+INFO     root:test_users_case.py:36 *************** 结束执行用例 ***************

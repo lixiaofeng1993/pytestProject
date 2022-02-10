@@ -41,7 +41,7 @@ def replace_variable(real_value, patt_value, data_value, value, key=None):
             data_value.insert(index, var_value)
         if isinstance(data_value, str):
             data_value = data_value.replace(patt_value, var_value, 1)
-        logger.info(f"提取替换的数据 ==>> {patt_value} -> {var_value}")
+        # logger.info(f"提取替换的数据 ==>> {patt_value} -> {var_value}")
         return data_value
 
 
@@ -71,7 +71,7 @@ def query_replace_variable(value, variables, data_value, key=None, data_type="st
                 read = ReadFileData()
                 real_value = read.load_csv(csv_path)
             data_value[key] = real_value
-            logger.info(f"提取替换的数据 ==>> {key} -> {real_value}")
+            # logger.info(f"提取替换的数据 ==>> {key} -> {real_value}")
             return data_value
     elif variables:
         if "sql_" in value:  # sql查询替换
@@ -231,7 +231,7 @@ def validators_result(result, validate: list):
             checkpoint_list.append(checkpoint)
     for checkpoint in checkpoint_list:
         if isinstance(checkpoint, dict):
-            comparator = checkpoint["comparator"] if checkpoint.get("comparator") else "error"
+            comparator = checkpoint["comparator"] if checkpoint.get("comparator") else ""
             check = checkpoint.get("check")
             expect = checkpoint.get("expect")
             path = checkpoint["jsonpath"] if checkpoint.get("jsonpath") else ""

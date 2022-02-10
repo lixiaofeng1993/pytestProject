@@ -34,13 +34,13 @@ class ReadFileData:
         :param file_path: 文件路径
         :return:
         """
-        logger.info(f"加载 {file_path} 文件......")
+        # logger.info(f"加载 {file_path} 文件......")
         with open(check(file_path), encoding='utf-8') as f:
             try:
                 data = yaml.safe_load(f)
             except yaml.YAMLError as ex:
                 raise exceptions.FileFormatError("file: {} error: {}".format(file_path, ex))
-        logger.info(f"读到数据 ==>>  {data} ")
+        # logger.info(f"读到数据 ==>>  {data} ")
         return data
 
     def load_json(self, file_path: str) -> (dict or list):
@@ -64,11 +64,11 @@ class ReadFileData:
         :param file_path: 文件路径
         :return:
         """
-        logger.info(f"加载 {file_path} 文件......")
+        # logger.info(f"加载 {file_path} 文件......")
         config = MyConfigParser()
         config.read(check(file_path), encoding="UTF-8")
         data = dict(config._sections)
-        logger.info(f"读到数据 ==>>  {data} ")
+        # logger.info(f"读到数据 ==>>  {data} ")
         return data
 
     def load_csv(self, file_path: str) -> list:
@@ -78,7 +78,7 @@ class ReadFileData:
         :return:
         """
         parametrize_list = list()
-        logger.info(f"加载 {file_path} 文件......")
+        # logger.info(f"加载 {file_path} 文件......")
         with io.open(check(file_path), encoding='gbk') as f:
             reader = csv.DictReader(f)
             for value in reader:
@@ -86,8 +86,11 @@ class ReadFileData:
                 # del value["case_name"]
                 validate_list = list()
                 params_list = list()
-                key = ",".join(value.keys()).strip()
-                key_list = key.split(",,")
+                try:
+                    key = ",".join(value.keys()).strip()
+                    key_list = key.split(",,")
+                except Exception as error:
+                    raise exceptions.CSVFormatError(f"csv文件数据格式异常！{error}")
                 if len(key_list) == 1:
                     params_list.append(value)
                     parametrize.append(params_list)
@@ -103,8 +106,10 @@ class ReadFileData:
                                 validate_value.update({"check": k})
                                 validate_list.append([validate_value])
                     parametrize.append({"validate": validate_list})
+                else:
+                    raise exceptions.CSVFormatError("csv文件数据格式异常！")
                 parametrize_list.append(parametrize)
-        logger.info(f"读到数据 ==>>  {parametrize_list} ")
+        # logger.info(f"读到数据 ==>>  {parametrize_list} ")
         return parametrize_list
 
     def write_file(self, file_path: str, data="", file_type: str = "zip", file_name: str = "") -> None:

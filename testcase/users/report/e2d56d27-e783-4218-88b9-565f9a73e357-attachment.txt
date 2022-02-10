@@ -1,0 +1,18 @@
+INFO     root:test_users_case.py:51 *************** 开始执行用例 ***************
+INFO     root:bae_request.py:39 接口请求地址 ==>> http://121.41.54.234/users/register
+INFO     root:bae_request.py:40 接口请求方式 ==>> POST
+INFO     root:bae_request.py:42 接口请求头 ==>> {}
+INFO     root:bae_request.py:43 接口请求 params 参数 ==>> {}
+INFO     root:bae_request.py:44 接口请求体 data 参数 ==>> 
+INFO     root:bae_request.py:45 接口请求体 json 参数 ==>> {
+    "name": "13052434305",
+    "zh_name": "姚云",
+    "email": "zhan@gmail.com",
+    "description": "事情也是完成成功完全只是.更新美国特别一点.主题科技合作时间以下点击品牌.原因中心音乐简介女人时间美国.继续工程资源工程.类型这样地址有限.可是比较登录以后世界文化应该不同.说明一个他们品牌因为中文一次.查看名称可能联系其实本站参加.如何当然她的选择.成功阅读直接准备.产品作品对于投资能力支持东西规定.建设现在如此作者.任何有限管理一切开发.具有大家一些大学社会到了自己.",
+    "hashed_password": "123456"
+}
+INFO     root:bae_request.py:46 接口上传附件 files 参数 ==>> []
+INFO     root:bae_request.py:54 接口返回信息 ==>> {'detail': ' name 或者 email 已存在！'}
+INFO     root:common.py:244 断言方式：equal 断言字段：status_code ==>> 断言值：400 ==>> 期望值：400
+INFO     root:common.py:334 断言成功！
+INFO     root:test_users_case.py:64 *************** 结束执行用例 ***************

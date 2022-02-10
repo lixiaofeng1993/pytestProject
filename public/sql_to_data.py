@@ -38,7 +38,7 @@ class SqlToData:
                 recursion_handle(data_value, sql_data)
         case_step_num = self.read.get_variable().get("case_step_num")
         test_data = object_data(test_data, file_path, case_step_num)
-        logger.info(f"更新后的数据：{test_data}")
+        # logger.info(f"更新后的数据：{test_data}")
         return test_data
 
 
