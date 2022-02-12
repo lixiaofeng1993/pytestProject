@@ -1,7 +1,7 @@
-case_name,name,zh_name,email,description,hashed_password,,status_code
+case_name,name,zh_name,email,description,hashed_password,,status_code,code
 注册成功,__phone,__name,__email,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""200"",""jsonpath"":""""}"
-name字段不符合格式,,__name,__email,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""400"",""jsonpath"":""""}"
-zh_name字段不符合格式,__phone,,__email,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""400"",""jsonpath"":""""}"
-email字段不符合格式,__phone,__name,,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""400"",""jsonpath"":""""}"
-name字段已存在,$query_name,__name,__email,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""400"",""jsonpath"":""""}"
-email字段已存在,$query_name,__name,$query_email,__text,"123456",,"{""comparator"": ""equal"",""expect"": ""400"",""jsonpath"":""""}"
+name字段不符合格式,,__name,__email,__text,"123456",,,"{""comparator"": ""equal"",""expect"": ""10008"",""jsonpath"":""$.detail.code""}"
+zh_name字段不符合格式,__phone,,__email,__text,"123456",,,"{""comparator"": ""equal"",""expect"": ""10008"",""jsonpath"":""$.detail.code""}"
+email字段不符合格式,__phone,__name,,__text,"123456",,,"{""comparator"": ""equal"",""expect"": ""10008"",""jsonpath"":""$.detail.code""}"
+name字段已存在,$query_name,__name,__email,__text,"123456",,,"{""comparator"": ""equal"",""expect"": ""10007"",""jsonpath"":""$.detail.code""}"
+email字段已存在,$query_name,__name,$query_email,__text,"123456",,,"{""comparator"": ""equal"",""expect"": ""10007"",""jsonpath"":""$.detail.code""}"
