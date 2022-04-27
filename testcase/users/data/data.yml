@@ -5,14 +5,14 @@ test_user_login_case:
   parametrize:
   params:
   data:
-    username: lixiaofeng
-    password: "123456"
+    username: {{ username() }}
+    password: {{ password() }}
   upload:
   extract:
     token: $.access_token
     name: $.name
   validate:
-    - [ comparator: equal, check: name, expect: lixiaofeng, jsonpath: "$.name" ]
+    - [ comparator: equal, check: name, expect: {{ username() }}, jsonpath: "$.name" ]
   story: 用例-登录接口
   title: 登录接口
   step: 登录接口测试
@@ -40,7 +40,8 @@ test_user_register_case:
     query_name: sql_query_name
     query_email: sql_query_email
   headers:
-  parametrize: ${parametrize_register.csv}
+  #  parametrize: ${parametrize_register.csv}
+  parametrize: {{ load_csv("users/data/parametrize_register.csv") }}
   params:
   json:
   upload:

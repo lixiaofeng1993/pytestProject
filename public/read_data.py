@@ -10,6 +10,7 @@ import yaml
 import csv
 import json
 from configparser import ConfigParser
+from public.render import render, all_functions
 from public.log import logger
 from public.help import *
 
@@ -35,11 +36,13 @@ class ReadFileData:
         :return:
         """
         # logger.info(f"加载 {file_path} 文件......")
-        with open(check(file_path), encoding='utf-8') as f:
-            try:
-                data = yaml.safe_load(f)
-            except yaml.YAMLError as ex:
-                raise exceptions.FileFormatError("file: {} error: {}".format(file_path, ex))
+        f = render(file_path, **all_functions())
+        data = yaml.safe_load(f)
+        # with open(check(file_path), encoding='utf-8') as f:
+        #     try:
+        #         data = yaml.safe_load(f)
+        #     except yaml.YAMLError as ex:
+        #         raise exceptions.FileFormatError("file: {} error: {}".format(file_path, ex))
         # logger.info(f"读到数据 ==>>  {data} ")
         return data
 
@@ -190,3 +193,4 @@ class ReadFileData:
 
 if __name__ == '__main__':
     data = ReadFileData()
+    print(data.load_yaml(r"E:\project\pytestProject\testcase\users\data\data.yml"))

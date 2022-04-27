@@ -131,6 +131,8 @@ LOG_PATH = mkdir(os.path.join(BASE_PATH, "log"))
 CONFIG_PATH = check(os.path.join(BASE_PATH, "config", "setting.ini"))
 # 报告目录
 REPORT_PATH = mkdir(os.path.join(BASE_PATH, "report"))
+# case目录
+CASE_PATH = mkdir(os.path.join(BASE_PATH, "testcase"))
 # 格式化时间
 format_time = time.strftime("%Y-%m-%d")
 format_time_min = time.strftime("%Y%m%d%H%M")
