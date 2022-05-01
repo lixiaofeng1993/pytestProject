@@ -57,23 +57,23 @@ def query_replace_variable(value, variables, data_value, key=None, data_type="st
     :return: 替换后的数据
     """
     variable_regexp = r"(\$[\w_\+]+)"
-    csv_regexp = r"\${([\w_\.csv]+)}"
     patt = re.findall(variable_regexp, value)
-    csv_patt = re.findall(csv_regexp, value)
-    real_value = ""
-    if csv_patt:
-        for csv_value in csv_patt:  # csv参数化数据替换
-            if csv_value:
-                _value_list = csv_value.split(".")
-                if _value_list[-1] != "csv":
-                    raise exceptions.ParametrizeValidateError("csv 参数化文件名称配置错误！")
-                csv_path = get_csv_path(file_path, csv_value)
-                read = ReadFileData()
-                real_value = read.load_csv(csv_path)
-            data_value[key] = real_value
-            # logger.info(f"提取替换的数据 ==>> {key} -> {real_value}")
-            return data_value
-    elif variables:
+    # csv_regexp = r"\${([\w_\.csv]+)}" # 递归替换yml文件中引用csv文件数据，被jinja2方式取代
+    # csv_patt = re.findall(csv_regexp, value)
+    # real_value = ""
+    # if csv_patt:
+    #     for csv_value in csv_patt:  # csv参数化数据替换
+    #         if csv_value:
+    #             _value_list = csv_value.split(".")
+    #             if _value_list[-1] != "csv":
+    #                 raise exceptions.ParametrizeValidateError("csv 参数化文件名称配置错误！")
+    #             csv_path = get_csv_path(file_path, csv_value)
+    #             read = ReadFileData()
+    #             real_value = read.load_csv(csv_path)
+    #         data_value[key] = real_value
+    #         # logger.info(f"提取替换的数据 ==>> {key} -> {real_value}")
+    #         return data_value
+    if variables:
         if "sql_" in value:  # sql查询替换
             if value[:3] != "sql":
                 sql_regexp = r"(sql_[\w_]+)"

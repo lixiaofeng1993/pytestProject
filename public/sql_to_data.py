@@ -31,8 +31,8 @@ class SqlToData:
         sql_data = test_data.get("sql")
         if sql_data:
             del test_data["sql"]
-        for keys, data_value in test_data.items():
-            recursion_handle(data_value, {}, file_path=file_path)
+        # for keys, data_value in test_data.items():
+        #     recursion_handle(data_value, {}, file_path=file_path)
         if sql_data:
             for keys, data_value in test_data.items():
                 recursion_handle(data_value, sql_data)
