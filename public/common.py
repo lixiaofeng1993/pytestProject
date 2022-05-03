@@ -12,7 +12,7 @@
 import re
 from jsonpath import jsonpath
 from public.log import logger
-# from public.oracle_operate import OracleDb
+from public.oracle_operate import OracleDb
 from public.mysql_operate import MysqlDb
 from public.random_params import random_params
 from public import exceptions
@@ -79,8 +79,11 @@ def query_replace_variable(value, variables, data_value, key=None, data_type="st
                 sql_regexp = r"(sql_[\w_]+)"
                 value = re.findall(sql_regexp, value)[0] if re.findall(sql_regexp, value) else None
             try:
-                # db = OracleDb()
-                db = MysqlDb()
+                db_type = variables.get("db_type")
+                if db_type == "oracle":
+                    db = OracleDb()
+                else:
+                    db = MysqlDb()
                 sql = variables[value]
                 real_value = db.execute_db(sql, data_type=data_type)
                 patt_value = value

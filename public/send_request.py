@@ -13,6 +13,7 @@ from public.common import recursion_handle, extract_variables, upload_file, para
     not_empty
 from public.read_data import ReadFileData
 from base.bae_request import BaseRequest
+from public.sign import decrypt
 
 
 class SendRequest:
@@ -58,9 +59,12 @@ class SendRequest:
         data = recursion_handle(data, self.extract)
         json = recursion_handle(json, self.extract)
         validate = recursion_handle(validate, self.extract)
-        url = self.read.get_host() + path if self.read.get_host() else path
+        url = self.read.get_host() + path if "http" not in path else path
         result = self.send.request(url=url, method=method, headers=headers, params=params, data=data, json=json,
                                    files=upload)
+        if self.extract.get("sign"):
+            sign_data = result.text["attachment"]["result"]
+            result.text["attachment"]["result"] = eval(decrypt(sign_data))
         validators_result(result, validate)  # 断言
         self.extract.update(extract_variables(result.response.json(), extract, self.extract))
         return result, self.extract
