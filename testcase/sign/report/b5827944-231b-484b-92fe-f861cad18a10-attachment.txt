@@ -1,0 +1,11 @@
+INFO     root:test_sign_case.py:28 *************** 开始执行用例 ***************
+INFO     root:bae_request.py:39 接口请求地址 ==>> http://carriermobile.hjzy56.com/api/carrierMobile/mobile/settlement/entityWalletById?id=1475344881117024257
+INFO     root:bae_request.py:40 接口请求方式 ==>> GET
+INFO     root:bae_request.py:42 接口请求头 ==>> {}
+INFO     root:bae_request.py:43 接口请求 params 参数 ==>> {}
+INFO     root:bae_request.py:44 接口请求体 data 参数 ==>> 
+INFO     root:bae_request.py:45 接口请求体 json 参数 ==>> {}
+INFO     root:bae_request.py:46 接口上传附件 files 参数 ==>> []
+INFO     root:bae_request.py:54 接口返回信息 ==>> {'status': {'statusCode': 0, 'statusReason': ''}, 'result': None, 'total': None, 'attachment': {'result': '2a5c22b518c0db7c07fc39f07aff4b7a40d357504a51a631c3c3e1ce842ec489'}}
+INFO     root:common.py:44 提取替换的数据 ==>> $sign_data -> {"isLogicalDelete":"0"}
+INFO     root:common.py:247 断言方式：equal 断言字段：isLogicalDelete ==>> 断言值：0 ==>> 期望值：False

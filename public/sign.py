@@ -9,6 +9,8 @@
 from Crypto.Cipher import AES
 import binascii
 
+from public.log import logger
+
 
 def decrypt(data) -> str:
     """
@@ -21,6 +23,7 @@ def decrypt(data) -> str:
     aes = AES.new(key, AES.MODE_ECB)
     data = aes.decrypt(data)
     data = data.decode('utf-8').strip('\t')
+    logger.info(f"解密后的数据 ==>> {data}")
     return data
 
 

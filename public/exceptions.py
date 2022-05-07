@@ -55,3 +55,8 @@ class CSVFormatError(MyBaseError):
 class NotEmptyError(MyBaseError):
     """字段非空判断"""
     pass
+
+
+class ResponseError(MyBaseError):
+    """接口返回值处理错误"""
+    pass

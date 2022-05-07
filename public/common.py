@@ -11,14 +11,16 @@
 
 import re
 from jsonpath import jsonpath
+from requests_toolbelt import MultipartEncoder
+
 from public.log import logger
 from public.oracle_operate import OracleDb
 from public.mysql_operate import MysqlDb
 from public.random_params import random_params
 from public import exceptions
 from public.help import file_obj, error_msg, get_csv_path
-from public.read_data import ReadFileData
-from requests_toolbelt import MultipartEncoder
+# from public.read_data import ReadFileData
+from public.sign import decrypt
 
 
 def replace_variable(real_value, patt_value, data_value, value, key=None):
@@ -34,14 +36,15 @@ def replace_variable(real_value, patt_value, data_value, value, key=None):
     if real_value:
         var_value = real_value if isinstance(real_value, str) else str(real_value)
         if isinstance(data_value, dict):
-            data_value[key] = data_value[key].replace(patt_value, var_value, 1)
+            data_value[key] = eval(data_value[key].replace(patt_value, var_value, 1)) if "sign_data" in patt_value \
+                else data_value[key].replace(patt_value, var_value, 1)
         elif isinstance(data_value, list):
             index = data_value.index(patt_value)
             data_value.remove(value)
             data_value.insert(index, var_value)
         if isinstance(data_value, str):
             data_value = data_value.replace(patt_value, var_value, 1)
-        # logger.info(f"提取替换的数据 ==>> {patt_value} -> {var_value}")
+        logger.info(f"提取替换的数据 ==>> {patt_value} -> {var_value}")
         return data_value
 
 
@@ -177,6 +180,26 @@ def parametrize_validate(parametrize):
                 elif key != "case_name":
                     params.update(param)
     return validate, params
+
+
+def encrypted_result(result: dict, variables: dict) -> dict:
+    """
+    处理接口返回值加密的情况
+    :param result:
+    :param variables:
+    :return:
+    """
+    sign_path = variables.get("sign_path")
+    if not isinstance(result, dict) or not sign_path:
+        raise exceptions.ResponseError(f"返回值类型错误/未设置sign_path变量！")
+    try:
+        sign_data = jsonpath(result, sign_path)[0]
+    except Exception as error:
+        raise exceptions.ResponseError(f"从返回值中提取加密字符串失败！==>> {error}")
+    sign_text = eval(str(result).replace(sign_data, "$sign_data"))
+    variables.update({"sign_data": decrypt(sign_data)})
+    result = recursion_handle(sign_text, variables)
+    return result
 
 
 def default_extract(res, field: str) -> str:

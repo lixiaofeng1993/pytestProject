@@ -3,6 +3,7 @@ test_sign_case:
   method: get
   variable:
     sign: true
+    sign_path: $.attachment.result
   headers:
   parametrize:
   params:

@@ -10,10 +10,9 @@
 """
 
 from public.common import recursion_handle, extract_variables, upload_file, parametrize_validate, validators_result, \
-    not_empty
+    not_empty, encrypted_result
 from public.read_data import ReadFileData
 from base.bae_request import BaseRequest
-from public.sign import decrypt
 
 
 class SendRequest:
@@ -63,8 +62,7 @@ class SendRequest:
         result = self.send.request(url=url, method=method, headers=headers, params=params, data=data, json=json,
                                    files=upload)
         if self.extract.get("sign"):
-            sign_data = result.text["attachment"]["result"]
-            result.text["attachment"]["result"] = eval(decrypt(sign_data))
+            result.text = encrypted_result(result.text, self.extract)
         validators_result(result, validate)  # 断言
         self.extract.update(extract_variables(result.response.json(), extract, self.extract))
         return result, self.extract
