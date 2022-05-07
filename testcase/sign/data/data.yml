@@ -23,26 +23,16 @@ test_token_case:
   variable:
     sign: false
   headers:
-    Connection: keep-alive
-    #    Content-Length: 203
-    Accept: application/json
-    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36
-    Content-Type: application/json;charset=UTF-8
-    Origin: http://192.168.1.100
-    Referer: http://192.168.1.100/carrier/drivers
-    Accept-Encoding: gzip, deflate
-    Accept-Language: zh-CN,zh;q=0.9
-    Cookie: JSESSIONID.f18fa14b=node016rndz12q993tkdz49fs7fp8a483.node0; screenResolution=1920x1080
   parametrize:
   params:
   data:
-    mobile: 247fe4b88e42402dd0e18d6bf00432ea
+    mobile: {{ encrypt("17766666666") }}
     password: "hww123456."
     #    verifyCode: {}
     grant_type: password
     userType: operation
     loginType: password
-    loginToken: {{ rand_str() }}
+    loginToken: {{ encrypt_md5() }}
   upload:
   extract:
   validate:

@@ -8,6 +8,8 @@
 # @desc : 解密AES加密接口返回值
 from Crypto.Cipher import AES
 import binascii
+import hashlib
+import datetime
 
 from public.log import logger
 
@@ -38,7 +40,7 @@ def add_to_16(text):
 
 def encrypt(data) -> str:
     """
-    AES 解密
+    AES 加密
     :param data: 要解密的数据
     :return:
     """
@@ -46,6 +48,16 @@ def encrypt(data) -> str:
     aes = AES.new(key, AES.MODE_ECB)
     data = aes.encrypt(add_to_16(data))
     return binascii.b2a_hex(data).decode()
+
+
+def encrypt_md5():
+    """
+    对向前日期进行md5加密
+    """
+    now = datetime.datetime.now().strftime('%Y%m%d')
+    h = hashlib.md5()
+    h.update(now.encode(encoding='utf-8'))
+    return h.hexdigest()
 
 
 if __name__ == '__main__':

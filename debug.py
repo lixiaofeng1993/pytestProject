@@ -12,6 +12,7 @@ import os.path
 
 from public.help import check, CASE_PATH
 from public import exceptions
+from public.sign import encrypt, encrypt_md5, decrypt
 
 
 def username():
@@ -63,12 +64,3 @@ def load_csv(file_path: str) -> list:
             parametrize_list.append(parametrize)
     # logger.info(f"读到数据 ==>>  {parametrize_list} ")
     return parametrize_list
-
-
-def rand_str():
-    import hashlib
-    import datetime
-    now = datetime.datetime.now().strftime('%Y%m%d')
-    h = hashlib.md5()
-    h.update(now.encode(encoding='utf-8'))
-    return h.hexdigest()
