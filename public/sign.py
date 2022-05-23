@@ -14,7 +14,7 @@ import datetime
 from public.log import logger
 
 
-def decrypt(data) -> str:
+def decrypt(data: str) -> str:
     """
     AES 解密
     :param data: 要解密的数据
@@ -29,7 +29,7 @@ def decrypt(data) -> str:
     return data
 
 
-def add_to_16(text):
+def add_to_16(text: str) -> str:
     if len(text.encode('utf-8')) % 16:
         add = 16 - (len(text.encode('utf-8')) % 16)
     else:
@@ -38,7 +38,7 @@ def add_to_16(text):
     return text.encode('utf-8')
 
 
-def encrypt(data) -> str:
+def encrypt(data: str) -> str:
     """
     AES 加密
     :param data: 要解密的数据
