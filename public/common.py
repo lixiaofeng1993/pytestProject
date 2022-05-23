@@ -10,6 +10,7 @@
 """
 
 import re
+import json
 from jsonpath import jsonpath
 from requests_toolbelt import MultipartEncoder
 
@@ -36,7 +37,7 @@ def replace_variable(real_value, patt_value, data_value, value, key=None):
     if real_value:
         var_value = real_value if isinstance(real_value, str) else str(real_value)
         if isinstance(data_value, dict):
-            data_value[key] = eval(data_value[key].replace(patt_value, var_value, 1)) if "sign_data" in patt_value \
+            data_value[key] = json.loads(data_value[key].replace(patt_value, var_value, 1)) if "sign_data" in patt_value \
                 else data_value[key].replace(patt_value, var_value, 1)
         elif isinstance(data_value, list):
             index = data_value.index(patt_value)

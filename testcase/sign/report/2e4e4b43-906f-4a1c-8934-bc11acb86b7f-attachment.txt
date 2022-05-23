@@ -1,0 +1,18 @@
+INFO     root:test_sign_case.py:50 *************** 开始执行用例 ***************
+INFO     root:bae_request.py:39 接口请求地址 ==>> http://operation.hjzy56.com/gateway/api/operationManagement/office/all
+INFO     root:bae_request.py:40 接口请求方式 ==>> GET
+INFO     root:bae_request.py:42 接口请求头 ==>> {
+    "Host": "operation.hjzy56.com",
+    "Connection": "keep-alive",
+    "jtiToken": "1528624936355594241",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36",
+    "Referer": "http://operation.hjzy56.com/",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "zh-CN,zh;q=0.9",
+    "Cookie": "acw_tc=2760820116532874379011169e8af14e13bd958bc11cb412933dd1ec2f87d1"
+}
+INFO     root:bae_request.py:43 接口请求 params 参数 ==>> {}
+INFO     root:bae_request.py:44 接口请求体 data 参数 ==>> 
+INFO     root:bae_request.py:45 接口请求体 json 参数 ==>> {}
+INFO     root:bae_request.py:46 接口上传附件 files 参数 ==>> []
+INFO     root:bae_request.py:54 接口返回信息 ==>> b''
