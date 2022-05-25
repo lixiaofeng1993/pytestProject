@@ -24,16 +24,16 @@ class TestUsersCase:
     def setup_class(self):
         self.extract = {}
 
-    def test_user_login_case(self, test_data):
-        logger.info("*************** 开始执行用例 ***************")
-        # 报告展示的测试步骤
-        report_step_setting(test_data)
-        # 登录接口
-        result, self.extract = SendRequest(test_data, self.extract).send_request()
-
-        # 报告上展示的测试标题等
-        report_setting(test_data)
-        logger.info("*************** 结束执行用例 ***************\n")
+    # def test_user_login_case(self, test_data):
+    #     logger.info("*************** 开始执行用例 ***************")
+    #     # 报告展示的测试步骤
+    #     report_step_setting(test_data)
+    #     # 登录接口
+    #     result, self.extract = SendRequest(test_data, self.extract).send_request()
+    #
+    #     # 报告上展示的测试标题等
+    #     report_setting(test_data)
+    #     logger.info("*************** 结束执行用例 ***************\n")
 
     def test_user_me_case(self, test_data):
         logger.info("*************** 开始执行用例 ***************")

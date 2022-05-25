@@ -23,6 +23,10 @@ def password():
     return "123456"
 
 
+def token():
+    return os.getenv("token")
+
+
 def load_csv(file_path: str) -> list:
     """
     读取参数化csv文件数据

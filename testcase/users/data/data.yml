@@ -23,7 +23,7 @@ test_user_me_case:
   path: /users/me
   method: get
   headers:
-    Authorization: Bearer $token
+    Authorization: Bearer {{ token() }}
   parametrize:
   params:
   upload:
