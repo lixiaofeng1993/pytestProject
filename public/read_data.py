@@ -190,6 +190,15 @@ class ReadFileData:
         variable = dict(variable) if variable else {}
         return variable
 
+    def get_system(self) -> dict:
+        """
+        返回系统设置
+        :return:
+        """
+        system = self.load_setting_ini()["system"]
+        system = dict(system) if system else {}
+        return system
+
 
 if __name__ == '__main__':
     data = ReadFileData()
