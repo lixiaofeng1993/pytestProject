@@ -45,7 +45,6 @@ test_all_user_case:
   variable:
     sign: true
     sign_path: $.result
-    query_name: sql_query_name
   parametrize:
   params:
   upload:
@@ -114,11 +113,6 @@ test_user_register_case:
   title: 获取登录用户信息接口
   step: 获取登录用户信息接口
   description: 该用例是针对 获取登录用户信息接口 的测试
-sql:
-  sql_query_name: select u.`name` FROM users u where is_delete = 0 LIMIT 1
-  sql_query_email: select u.email FROM users u LIMIT 1
-epic: EasyTest项目
-feature: 用户接口
 
 test_logout_case:
   path: /users/logout
@@ -137,3 +131,9 @@ test_logout_case:
   title: 退出登录接口
   step: 退出登录接口
   description: 该用例是针对 退出登录接口 的测试
+
+sql:
+  sql_query_name: select u.`name` FROM users u where is_delete = 0 ORDER BY `name` LIMIT 1
+  sql_query_email: select u.email FROM users u where is_delete = 0 ORDER BY `name` LIMIT 1
+epic: EasyTest项目
+feature: 用户接口
