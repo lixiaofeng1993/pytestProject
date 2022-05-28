@@ -24,24 +24,87 @@ test_user_me_case:
   method: get
   headers:
     Authorization: Bearer {{ token() }}
+  variable:
+    sign: true
+    sign_path: $.result
   parametrize:
   params:
   upload:
   validate:
-    - [ comparator: equal, check: name, expect: lixiaofeng, jsonpath: "$.name" ]
+    - [ comparator: equal, check: name, expect: lixiaofeng, jsonpath: "$.result.name" ]
   story: 用例-获取登录用户信息接口
   title: 获取登录用户信息接口
   step: 获取登录用户信息接口
   description: 该用例是针对 获取登录用户信息接口 的测试
 
+test_all_user_case:
+  path: /users
+  method: get
+  headers:
+    Authorization: Bearer {{ token() }}
+  variable:
+    sign: true
+    sign_path: $.result
+    query_name: sql_query_name
+  parametrize:
+  params:
+  upload:
+  extract:
+    user_id: $.result[0].id
+  validate:
+    - [ comparator: equal, check: is_delete, expect: False, jsonpath: "$.result[0].is_delete" ]
+  story: 用例-获取所有用户信息接口
+  title: 获取所有用户信息接口
+  step: 获取所有用户信息接口
+  description: 该用例是针对 获取所有用户信息接口 的测试
+
+test_one_user_case:
+  path: /users/$user_id
+  method: get
+  headers:
+    Authorization: Bearer {{ token() }}
+  variable:
+    sign: true
+    sign_path: $.result
+  parametrize:
+  params:
+  upload:
+  extract:
+  validate:
+    - [ comparator: equal, check: user_id, expect: $user_id, jsonpath: "$.result.id" ]
+  story: 用例-获取指定用户信息接口
+  title: 获取指定用户信息接口
+  step: 获取指定用户信息接口
+  description: 该用例是针对 获取指定用户信息接口 的测试
+
+test_delete_user_case:
+  path: /users/$user_id
+  method: delete
+  headers:
+    Authorization: Bearer {{ token() }}
+  variable:
+    sign: true
+    sign_path: $.result
+  parametrize:
+  params:
+  upload:
+  extract:
+  validate:
+    - [ comparator: equal, check: user_id, expect: $user_id, jsonpath: "$.result.id" ]
+  story: 用例-获取指定用户信息接口
+  title: 获取指定用户信息接口
+  step: 获取指定用户信息接口
+  description: 该用例是针对 获取指定用户信息接口 的测试
+
 test_user_register_case:
   path: /users/register
   method: post
   variable:
+    sign: false
     query_name: sql_query_name
     query_email: sql_query_email
   headers:
-#  parametrize: ${parametrize_register.csv}
+  #  parametrize: ${parametrize_register.csv}
   parametrize: {{ load_csv("users/data/parametrize_register.csv") }}
   params:
   json:
@@ -52,7 +115,25 @@ test_user_register_case:
   step: 获取登录用户信息接口
   description: 该用例是针对 获取登录用户信息接口 的测试
 sql:
-  sql_query_name: select u.`name` FROM users u LIMIT 1
+  sql_query_name: select u.`name` FROM users u where is_delete = 0 LIMIT 1
   sql_query_email: select u.email FROM users u LIMIT 1
 epic: EasyTest项目
 feature: 用户接口
+
+test_logout_case:
+  path: /users/logout
+  method: post
+  headers:
+    Authorization: Bearer {{ token() }}
+  variable:
+    sign: false
+  parametrize:
+  params:
+  upload:
+  extract:
+  validate:
+    - [ comparator: equal, check: user_id, expect: 10010, jsonpath: "$.detail.code" ]
+  story: 用例-退出登录接口
+  title: 退出登录接口
+  step: 退出登录接口
+  description: 该用例是针对 退出登录接口 的测试

@@ -10,8 +10,7 @@ from Crypto.Cipher import AES
 import binascii
 import hashlib
 import datetime
-
-from public.log import logger
+import re
 
 
 def decrypt(data: str) -> str:
@@ -21,11 +20,12 @@ def decrypt(data: str) -> str:
     :return:
     """
     key = b"nsz3*H&I@xINg/tH"
+    patt = "([\\[{].+[\\]}])"
     data = binascii.a2b_hex(data)
     aes = AES.new(key, AES.MODE_ECB)
     data = aes.decrypt(data)
     data = data.decode('utf-8').strip('\t')
-    logger.info(f"解密后的数据 ==>> {data}")
+    data = re.findall(patt, data)[0]
     return data
 
 

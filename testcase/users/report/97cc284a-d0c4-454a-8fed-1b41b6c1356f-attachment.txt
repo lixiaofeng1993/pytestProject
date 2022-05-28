@@ -1,0 +1,17 @@
+INFO     root:common.py:48 提取替换的数据 ==>> sql_query_name -> 13974091376
+INFO     root:common.py:48 提取替换的数据 ==>> sql_query_name -> 13974091376
+INFO     root:common.py:48 提取替换的数据 ==>> sql_query_email -> mogang@yongkang.cn
+INFO     root:test_users_case.py:106 *************** 开始执行用例 ***************
+INFO     root:bae_request.py:39 接口请求地址 ==>> http://127.0.0.1:8000/users/logout
+INFO     root:bae_request.py:40 接口请求方式 ==>> POST
+INFO     root:bae_request.py:42 接口请求头 ==>> {
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaXhpYW9mZW5nIiwiZXhwIjoxNjUzNzM1NDc4fQ.JhYUU5p6dOunfh7rrEo65CWgUaitOIQSWtjTPf34p6U"
+}
+INFO     root:bae_request.py:43 接口请求 params 参数 ==>> {}
+INFO     root:bae_request.py:44 接口请求体 data 参数 ==>> 
+INFO     root:bae_request.py:45 接口请求体 json 参数 ==>> {}
+INFO     root:bae_request.py:46 接口上传附件 files 参数 ==>> []
+INFO     root:bae_request.py:54 接口返回信息 ==>> {'detail': {'code': 10010, 'message': 'lixiaofeng 退出登录成功！'}}
+INFO     root:common.py:272 断言方式：equal 断言字段：user_id ==>> 断言值：10010 ==>> 期望值：[10010]
+INFO     root:common.py:362 断言成功！
+INFO     root:test_users_case.py:114 *************** 结束执行用例 ***************

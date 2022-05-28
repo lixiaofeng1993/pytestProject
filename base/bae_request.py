@@ -51,7 +51,7 @@ class BaseRequest:
                                             json=json, verify=False)
             result = BaseResult().default_assert(response)
             # result = BaseResult().default_assert(Response())
-            logger.info(f"接口返回信息 ==>> {result.text}")
+            logger.info(f"接口返回信息 ==>> {str(result.text)[:500]}")
         except requests.exceptions.Timeout as error:
             raise requests.exceptions.Timeout(f"接口请求超时错误 ==>> {url} -> {error}")
         except Exception as error:

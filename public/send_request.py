@@ -64,5 +64,5 @@ class SendRequest:
         if self.extract.get("sign"):
             result.text = encrypted_result(result.text, self.extract)
         validators_result(result, validate)  # 断言
-        self.extract.update(extract_variables(result.response.json(), extract, self.extract))
+        self.extract.update(extract_variables(result.text, extract, self.extract))
         return result, self.extract

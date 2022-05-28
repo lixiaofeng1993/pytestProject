@@ -1,0 +1,21 @@
+INFO     root:common.py:48 提取替换的数据 ==>> sql_query_name -> 13974091376
+INFO     root:common.py:48 提取替换的数据 ==>> sql_query_name -> 13974091376
+INFO     root:common.py:48 提取替换的数据 ==>> sql_query_email -> mogang@yongkang.cn
+INFO     root:test_users_case.py:64 *************** 开始执行用例 ***************
+INFO     root:common.py:48 提取替换的数据 ==>> $user_id -> 219fd968a3bf4dfd9901c24de6ebdf04
+INFO     root:common.py:48 提取替换的数据 ==>> $user_id -> 219fd968a3bf4dfd9901c24de6ebdf04
+INFO     root:bae_request.py:39 接口请求地址 ==>> http://127.0.0.1:8000/users/219fd968a3bf4dfd9901c24de6ebdf04
+INFO     root:bae_request.py:40 接口请求方式 ==>> GET
+INFO     root:bae_request.py:42 接口请求头 ==>> {
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaXhpYW9mZW5nIiwiZXhwIjoxNjUzNzM1NDc4fQ.JhYUU5p6dOunfh7rrEo65CWgUaitOIQSWtjTPf34p6U"
+}
+INFO     root:bae_request.py:43 接口请求 params 参数 ==>> {}
+INFO     root:bae_request.py:44 接口请求体 data 参数 ==>> 
+INFO     root:bae_request.py:45 接口请求体 json 参数 ==>> {}
+INFO     root:bae_request.py:46 接口上传附件 files 参数 ==>> []
+INFO     root:bae_request.py:54 接口返回信息 ==>> {'code': 200, 'message': '请求成功', 'result': '9070fa29c7a55a67c9da0367df43868ad3111825981b42bca90409cf947a511d7e26ee125ccfe1c9d9223a0cf543c6b9da9ff21013ec2d044aaaf64ad7230bc7cd4fac417d043f4591ed15657ceaac33b4e4faa5715547ee5c47f6ce3556aa6126de1f97d4b84a1042440be440e2a80cf2febc616675fa3bbb62d36dee082997e33b3a05ea4aea0abbd9321e3949adf712962b1e458d4128274de6ddfb438bd04750649ce8fa014085211365a6eb466c61242061b7c252a6ac9f6105b47874b57675ceb24b5e886bf12bf817f676046266f9b94939982b843059823accd50bc085ba9f0c
+INFO     root:common.py:48 提取替换的数据 ==>> $sign_data -> {"name": "13286105928", "email": "jie94@luolei.cn", "is_active": true, "is_delete": false, "last_log
+INFO     root:common.py:203 解密后的数据 ==>> {'code': 200, 'message': '请求成功', 'result': {'name': '13286105928', 'email': 'jie94@luolei.cn', 'is_active': True, 'is_delete': False, 'last_login': '2022-02-11 12:53:43', 'id': '219fd968a3bf4dfd9901c24de6ebdf04', 'zh_name': '李玉', 'hashed_password': '$2b$12$z1wjQ21H9Pic3yYw0uPt4eiBhxfHuE1eT0fYYIA/RvRCSw/APTac.', 'is_superuser': False, 'description': '当前包括怎么规定一种程序市场.回复设计标准可以都是一个注意.说明工程新闻以下之间时间.一个发布生活一样标准.这些能够更新点击经验.发现首页方法音乐设计全部拥有.喜欢如何程序一切有关的人手机.关于显示自己计划.无法以上电子日本教育.的话完成广告说明专业查看.市场学习阅读开始本站位置.你的实现图片能
+INFO     root:common.py:272 断言方式：equal 断言字段：user_id ==>> 断言值：219fd968a3bf4dfd9901c24de6ebdf04 ==>> 期望值：['219fd968a3bf4dfd9901c24de6ebdf04']
+INFO     root:common.py:362 断言成功！
+INFO     root:test_users_case.py:72 *************** 结束执行用例 ***************

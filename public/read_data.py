@@ -148,7 +148,8 @@ class ReadFileData:
         返回mysql数据库配置信息
         :return:
         """
-        data = self.load_setting_ini()["mysql"]
+        flag = self.load_setting_ini()["host"]["flag"]
+        data = self.load_setting_ini()["mysql-dev"] if flag == "0" else self.load_setting_ini()["mysql"]
         db_conf = {
             "host": data["MYSQL_HOST"],
             "port": int(data["MYSQL_PORT"]),
@@ -178,7 +179,8 @@ class ReadFileData:
         :return:
         """
         data = self.load_setting_ini()["host"]
-        host = data["test_host"]
+        flag = data["flag"]
+        host = data["test_host"] if flag == "0" else data["host"]
         return host
 
     def get_variable(self) -> dict:

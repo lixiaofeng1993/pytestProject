@@ -45,7 +45,7 @@ def replace_variable(real_value, patt_value, data_value, value, key=None):
             data_value.insert(index, var_value)
         if isinstance(data_value, str):
             data_value = data_value.replace(patt_value, var_value, 1)
-        logger.info(f"提取替换的数据 ==>> {patt_value} -> {var_value}")
+        logger.info(f"提取替换的数据 ==>> {patt_value} -> {var_value[:100]}")
         return data_value
 
 
@@ -191,8 +191,8 @@ def encrypted_result(result: dict, variables: dict) -> dict:
     :return:
     """
     sign_path = variables.get("sign_path")
-    if not isinstance(result, dict) or not sign_path:
-        raise exceptions.ResponseError(f"返回值类型错误/未设置sign_path变量！")
+    if not sign_path:
+        raise exceptions.ResponseError(f"未设置sign_path变量！")
     try:
         sign_data = jsonpath(result, sign_path)[0]
     except Exception as error:
@@ -200,6 +200,7 @@ def encrypted_result(result: dict, variables: dict) -> dict:
     sign_text = eval(str(result).replace(sign_data, "$sign_data"))
     variables.update({"sign_data": decrypt(sign_data)})
     result = recursion_handle(sign_text, variables)
+    logger.info(f"解密后的数据 ==>> {str(result)[:500]}")
     return result
 
 
@@ -298,7 +299,7 @@ def validators_result(result, validate: list):
                 if isinstance(check_field, list):
                     for field in check_field:
                         field = str(field) if not isinstance(field, str) else field
-                        assert expect in field, error_msg(check)
+                        assert expect not in field, error_msg(check)
                 else:
                     check_field = check_field if isinstance(check_field, str) else str(check_field)
                     assert expect not in check_field, error_msg(check)

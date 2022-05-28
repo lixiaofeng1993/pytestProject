@@ -1,0 +1,19 @@
+INFO     root:common.py:48 提取替换的数据 ==>> sql_query_name -> 13974091376
+INFO     root:common.py:48 提取替换的数据 ==>> sql_query_name -> 13974091376
+INFO     root:common.py:48 提取替换的数据 ==>> sql_query_email -> mogang@yongkang.cn
+INFO     root:test_users_case.py:40 *************** 开始执行用例 ***************
+INFO     root:bae_request.py:39 接口请求地址 ==>> http://127.0.0.1:8000/users/me
+INFO     root:bae_request.py:40 接口请求方式 ==>> GET
+INFO     root:bae_request.py:42 接口请求头 ==>> {
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaXhpYW9mZW5nIiwiZXhwIjoxNjUzNzM1NDc4fQ.JhYUU5p6dOunfh7rrEo65CWgUaitOIQSWtjTPf34p6U"
+}
+INFO     root:bae_request.py:43 接口请求 params 参数 ==>> {}
+INFO     root:bae_request.py:44 接口请求体 data 参数 ==>> 
+INFO     root:bae_request.py:45 接口请求体 json 参数 ==>> {}
+INFO     root:bae_request.py:46 接口上传附件 files 参数 ==>> []
+INFO     root:bae_request.py:54 接口返回信息 ==>> {'code': 200, 'message': '请求成功', 'result': 'bf3472891371c4e3fe7c1e42869c02f2e52df2feb975e763b18c115d9829666ae600796c2899c4b02c0eef123fadf4a8e0fcfb67a2849951c8e5f5ae62e6bc3912cc6624680367a3936a7934d406be9d7565703bf7a6a3dbe7dd2a9873516530d1fe0b03075d44fc9e34d94424d6ad741f147bbae258ddabf0a958bd736eee2ff840a0dc0ef8b8793ed2939671a15b133559df79dbb3474fe20521c62da1f78c9952874dfa1e54562a94c3067fc7393f9babbd9392583747c7e3c25e069ebede3b291452c60c90593a339d7b0df5148af24672c6fd0a3b1b82046f4b7f7a90e1cf3eab4b
+INFO     root:common.py:48 提取替换的数据 ==>> $sign_data -> {"name": "lixiaofeng", "email": "12@163.com", "is_active": true, "is_delete": false, "last_login": "
+INFO     root:common.py:203 解密后的数据 ==>> {'code': 200, 'message': '请求成功', 'result': {'name': 'lixiaofeng', 'email': '12@163.com', 'is_active': True, 'is_delete': False, 'last_login': '2022-05-28 18:27:59', 'id': 'fccdb93e98234c7c8cc920c30299199e', 'zh_name': '管理员', 'hashed_password': '$2b$12$gozxrI9x9d3I.P961bgDM.aZq0L80f1FrBAACxujOXzs5hrlvtFVa', 'is_superuser': True, 'description': '这是一个测试用户2', 'create_date': '2022-02-06 14:59:57'}}
+INFO     root:common.py:272 断言方式：equal 断言字段：name ==>> 断言值：lixiaofeng ==>> 期望值：['lixiaofeng']
+INFO     root:common.py:362 断言成功！
+INFO     root:test_users_case.py:48 *************** 结束执行用例 ***************

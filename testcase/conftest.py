@@ -6,19 +6,28 @@
 # 创建时间: 2022/5/25 15:06
 # @Version：V 0.1
 # @desc :
+import json
+
 import pytest
 import requests
 import os
 
+from public.read_data import ReadFileData
+from public.sign import decrypt
+
 
 @pytest.fixture(scope="session", autouse=True)
 def test_token():
-    url = "http://121.41.54.234/users/login"
+    read = ReadFileData()
+    host = read.get_host()
+    url = host + "/users/login"
     data = {
         "username": "lixiaofeng",
         "password": "123456"
     }
     res = requests.post(url, data)
-    token = res.json().get("access_token")
+    data = json.loads(decrypt(res.json().get("result")))
+    token = data.get("access_token")
     if token:
         os.environ["token"] = token
+#

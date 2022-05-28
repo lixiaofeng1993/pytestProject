@@ -12,7 +12,6 @@ import os.path
 
 from public.help import check, CASE_PATH
 from public import exceptions
-from public.sign import encrypt, encrypt_md5, decrypt
 
 
 def username():

@@ -35,6 +35,7 @@ class TestUsersCase:
     #     report_setting(test_data)
     #     logger.info("*************** 结束执行用例 ***************\n")
 
+    @pytest.mark.run(order=1)
     def test_user_me_case(self, test_data):
         logger.info("*************** 开始执行用例 ***************")
         # 报告展示的测试步骤
@@ -46,6 +47,43 @@ class TestUsersCase:
         report_setting(test_data)
         logger.info("*************** 结束执行用例 ***************\n")
 
+    @pytest.mark.run(order=1)
+    def test_all_user_case(self, test_data):
+        logger.info("*************** 开始执行用例 ***************")
+        # 报告展示的测试步骤
+        report_step_setting(test_data)
+
+        result, self.extract = SendRequest(test_data, self.extract).send_request()
+
+        # 报告上展示的测试标题等
+        report_setting(test_data)
+        logger.info("*************** 结束执行用例 ***************\n")
+
+    @pytest.mark.run(order=1)
+    def test_one_user_case(self, test_data):
+        logger.info("*************** 开始执行用例 ***************")
+        # 报告展示的测试步骤
+        report_step_setting(test_data)
+
+        result, self.extract = SendRequest(test_data, self.extract).send_request()
+
+        # 报告上展示的测试标题等
+        report_setting(test_data)
+        logger.info("*************** 结束执行用例 ***************\n")
+
+    @pytest.mark.run(order=1)
+    def test_delete_user_case(self, test_data):
+        logger.info("*************** 开始执行用例 ***************")
+        # 报告展示的测试步骤
+        report_step_setting(test_data)
+
+        result, self.extract = SendRequest(test_data, self.extract).send_request()
+
+        # 报告上展示的测试标题等
+        report_setting(test_data)
+        logger.info("*************** 结束执行用例 ***************\n")
+
+    @pytest.mark.run(order=1)
     @pytest.mark.parametrize("data", test_params["test_user_register_case"].parametrize)
     def test_user_register_case(self, data):
         logger.info("*************** 开始执行用例 ***************")
@@ -61,6 +99,18 @@ class TestUsersCase:
 
         # 报告上展示的测试标题等
         report_setting(test_params[name])
+        logger.info("*************** 结束执行用例 ***************\n")
+
+    @pytest.mark.run(order=999)
+    def test_logout_case(self, test_data):
+        logger.info("*************** 开始执行用例 ***************")
+        # 报告展示的测试步骤
+        report_step_setting(test_data)
+
+        result, self.extract = SendRequest(test_data, self.extract).send_request()
+
+        # 报告上展示的测试标题等
+        report_setting(test_data)
         logger.info("*************** 结束执行用例 ***************\n")
 
 
