@@ -26,7 +26,7 @@ class TestProjectCase:
 
     @pytest.mark.run(order=1)
     @pytest.mark.parametrize("data", test_params["test_create_project_case"].parametrize)
-    def test_create_project_case(self, data, test_data):
+    def test_create_project_case(self, data, test_data):  # TODO: 使用 test_params[name] jinja2 无法替换yml文件中的token()函数
         logger.info("*************** 开始执行用例 ***************")
         # 报告展示的测试步骤
         report_step_setting(test_data.case_step_1)
