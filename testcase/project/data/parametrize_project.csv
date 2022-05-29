@@ -1,0 +1,5 @@
+case_name,name,description,sign_id,,status_code,code
+注册成功,__word,__text,$sign_id,,"{""comparator"": ""equal"",""expect"": ""200"",""jsonpath"":""""}"
+name不符合格式,,__text,$sign_id,,,"{""comparator"": ""equal"",""expect"": ""10008"",""jsonpath"":""$.detail.code""}"
+name已存在,$query_name,__text,$sign_id,,,"{""comparator"": ""equal"",""expect"": ""10007"",""jsonpath"":""$.detail.code""}"
+sign_id不存在,__word,__text,,,,"{""comparator"": ""equal"",""expect"": ""10009"",""jsonpath"":""$.detail.code""}"

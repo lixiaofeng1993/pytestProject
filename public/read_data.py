@@ -204,4 +204,4 @@ class ReadFileData:
 
 if __name__ == '__main__':
     data = ReadFileData()
-    print(data.load_yaml(r"E:\project\pytestProject\testcase\users\data\data.yml"))
+    print(data.load_yaml(r"E:\project\pytestProject\testcase\project\data\data.yml"))

@@ -14,20 +14,30 @@ import os
 
 from public.read_data import ReadFileData
 from public.sign import decrypt
+from public.log import logger
 
 
 @pytest.fixture(scope="session", autouse=True)
 def test_token():
     read = ReadFileData()
     host = read.get_host()
-    url = host + "/users/login"
-    data = {
+    login_url = host + "/users/login"
+    login_data = {
         "username": "lixiaofeng",
         "password": "123456"
     }
-    res = requests.post(url, data)
-    data = json.loads(decrypt(res.json().get("result")))
+    # 登录获取token
+    login_res = requests.post(login_url, login_data)
+    data = json.loads(decrypt(login_res.json().get("result")))
     token = data.get("access_token")
     if token:
+        logger.info(f"登录接口 -->> token：{token}")
         os.environ["token"] = token
-#
+    yield
+    # 退出登录
+    logout_url = host + "/users/logout"
+    logout_headers = {
+        "Authorization": f"Bearer {token}"
+    }
+    logout_res = requests.post(logout_url, headers=logout_headers)
+    logger.info(f"退出登录接口 -->> 返回值： {logout_res.json()}")

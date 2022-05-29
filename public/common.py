@@ -20,7 +20,7 @@ from public.mysql_operate import MysqlDb
 from public.random_params import random_params
 from public import exceptions
 from public.help import file_obj, error_msg, get_csv_path
-# from public.read_data import ReadFileData
+from public.read_data import ReadFileData
 from public.sign import decrypt
 
 
@@ -62,21 +62,21 @@ def query_replace_variable(value, variables, data_value, key=None, data_type="st
     """
     variable_regexp = r"(\$[\w_\+]+)"
     patt = re.findall(variable_regexp, value)
-    # csv_regexp = r"\${([\w_\.csv]+)}" # 递归替换yml文件中引用csv文件数据，被jinja2方式取代
-    # csv_patt = re.findall(csv_regexp, value)
-    # real_value = ""
-    # if csv_patt:
-    #     for csv_value in csv_patt:  # csv参数化数据替换
-    #         if csv_value:
-    #             _value_list = csv_value.split(".")
-    #             if _value_list[-1] != "csv":
-    #                 raise exceptions.ParametrizeValidateError("csv 参数化文件名称配置错误！")
-    #             csv_path = get_csv_path(file_path, csv_value)
-    #             read = ReadFileData()
-    #             real_value = read.load_csv(csv_path)
-    #         data_value[key] = real_value
-    #         # logger.info(f"提取替换的数据 ==>> {key} -> {real_value}")
-    #         return data_value
+    csv_regexp = r"\${([\w_\.csv]+)}" # 递归替换yml文件中引用csv文件数据，被jinja2方式取代
+    csv_patt = re.findall(csv_regexp, value)
+    real_value = ""
+    if csv_patt:
+        for csv_value in csv_patt:  # csv参数化数据替换
+            if csv_value:
+                _value_list = csv_value.split(".")
+                if _value_list[-1] != "csv":
+                    raise exceptions.ParametrizeValidateError("csv 参数化文件名称配置错误！")
+                csv_path = get_csv_path(file_path, csv_value)
+                read = ReadFileData()
+                real_value = read.load_csv(csv_path)
+            data_value[key] = real_value
+            # logger.info(f"提取替换的数据 ==>> {key} -> {real_value}")
+            return data_value
     if variables:
         if "sql_" in value:  # sql查询替换
             if value[:3] != "sql":
@@ -303,6 +303,22 @@ def validators_result(result, validate: list):
                 else:
                     check_field = check_field if isinstance(check_field, str) else str(check_field)
                     assert expect not in check_field, error_msg(check)
+            elif comparator == "or_contains":
+                expect_list = expect.split(",")
+                assert_result = False
+                if isinstance(check_field, list):
+                    for field in check_field:
+                        field = str(field) if not isinstance(field, str) else field
+                        for expect_field in expect_list:
+                            if expect_field and expect_field.strip() in field:
+                                assert_result = True
+                        assert assert_result, error_msg(check)
+                else:
+                    check_field = check_field if isinstance(check_field, str) else str(check_field)
+                    for expect_field in expect_list:
+                        if expect_field and expect_field.strip() in check_field:
+                            assert_result = True
+                    assert assert_result, error_msg(check)
             elif comparator == "startswith":
                 if isinstance(check_field, list):
                     for field in check_field:
@@ -351,6 +367,22 @@ def validators_result(result, validate: list):
                 else:
                     check_field = check_field if isinstance(check_field, str) else str(check_field)
                     assert check_field <= expect, error_msg(check)
+            elif comparator == "bool":
+                if isinstance(check_field, list):
+                    for field in check_field:
+                        field = str(field) if not isinstance(field, str) else field
+                        if field:
+                            assert_result = True
+                        else:
+                            assert_result = False
+                        assert str(assert_result) == expect, error_msg(check)
+                else:
+                    check_field = check_field if isinstance(check_field, str) else str(check_field)
+                    if check_field:
+                        assert_result = True
+                    else:
+                        assert_result = False
+                    assert str(assert_result) == expect, error_msg(check)
             elif comparator == "regex_match":
                 if isinstance(check_field, list):
                     for field in check_field:
