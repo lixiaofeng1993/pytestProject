@@ -51,17 +51,20 @@ def send_ding(plugin):
     failed = summary.get("failed", 0)
     skipped = summary.get("skipped", 0)
     total = summary.get("total", 0)
-    duration = plugin.report.get("duration", None)
+    duration = str(plugin.report.get("duration", None))[:-12]
     start = time.localtime(plugin.report["created"] if plugin.report.get("created", None) else time.time())
     start = time.strftime("%Y-%m-%d %H:%M:%S", start)
+    system = read.get_system()
+    flag = system.get("flag", None)
+    url = system.get("allure_test_url", None) if flag == "0" else system.get("allure_url", None)
+    ding = system.get("ding", None)
     body = {
         "msgtype": "text",
         "text": {
             "content": f"接口测试报告 开始时间 {start}，持续时长 {duration} 秒。\n 共 {total} 条，通过 {passed} 条，"
-                       f"失败 {failed} 条，跳过 {skipped} 条.\n 详情请前往框架 report 目录查看。"
+                       f"失败 {failed} 条，跳过 {skipped} 条.\n 详情前往地址：{url} 查看。"
         }
     }
-    ding = read.get_system().get("ding", None)
     if ding == "true":
         res = requests.post(
             "https://oapi.dingtalk.com/robot/send?access_token={}&timestamp={}&sign={}".format(
