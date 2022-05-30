@@ -6,6 +6,8 @@
 # 创建时间: 2021/11/2 23:04
 # @Version：V 0.1
 # @desc : 数据读取
+import platform
+
 import yaml
 import csv
 import json
@@ -148,7 +150,7 @@ class ReadFileData:
         返回mysql数据库配置信息
         :return:
         """
-        flag = self.get_system()["flag"]
+        flag = self.get_flag()
         data = self.load_setting_ini()["mysql-dev"] if flag == "0" else self.load_setting_ini()["mysql"]
         db_conf = {
             "host": data["MYSQL_HOST"],
@@ -179,7 +181,7 @@ class ReadFileData:
         :return:
         """
         data = self.load_setting_ini()["host"]
-        flag = self.get_system()["flag"]
+        flag = self.get_flag()
         host = data["test_host"] if flag == "0" else data["host"]
         return host
 
@@ -200,6 +202,17 @@ class ReadFileData:
         system = self.load_setting_ini()["system"]
         system = dict(system) if system else {}
         return system
+
+    def get_flag(self):
+        """
+        获取 flag
+        :return:
+        """
+        system = self.get_system()
+        flag = system.get("flag", None)
+        if not flag:
+            flag = "0" if platform.system() == "Windows" else "1"
+        return flag
 
 
 if __name__ == '__main__':

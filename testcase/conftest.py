@@ -11,14 +11,19 @@ import json
 import pytest
 import requests
 import os
+import time
 
 from public.read_data import ReadFileData
 from public.sign import decrypt
 from public.log import logger
+from public.send_ding import send_ding
 
 
 @pytest.fixture(scope="session", autouse=True)
 def test_token():
+    """
+    前置获取token，后置销毁token
+    """
     read = ReadFileData()
     host = read.get_host()
     login_url = host + "/users/login"
@@ -41,3 +46,10 @@ def test_token():
     }
     logout_res = requests.post(logout_url, headers=logout_headers)
     logger.info(f"退出登录接口 -->> 返回值： {logout_res.json()}")
+
+
+def pytest_terminal_summary(terminalreporter, exitstatus, config):
+    """
+    收集测试结果
+    """
+    send_ding(terminalreporter)
