@@ -12,6 +12,8 @@ import hashlib
 import datetime
 import re
 
+from public.exceptions import ResponseError
+
 
 def decrypt(data: str) -> str:
     """
@@ -21,11 +23,14 @@ def decrypt(data: str) -> str:
     """
     key = b"nsz3*H&I@xINg/tH"
     patt = "([\\[{].+[\\]}])"
-    data = binascii.a2b_hex(data)
-    aes = AES.new(key, AES.MODE_ECB)
-    data = aes.decrypt(data)
-    data = data.decode('utf-8').strip('\t')
-    data = re.findall(patt, data)[0]
+    try:
+        data = binascii.a2b_hex(data)
+        aes = AES.new(key, AES.MODE_ECB)
+        data = aes.decrypt(data)
+        data = data.decode('utf-8').strip('\t')
+        data = re.findall(patt, data)[0]
+    except TypeError as error:
+        raise ResponseError(f"接口返回值 {data} 解密出现异常 -->> {error}")
     return data
 
 

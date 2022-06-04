@@ -26,6 +26,7 @@ def test_token():
     """
     read = ReadFileData()
     host = read.get_host()
+    token = None
     login_url = host + "/users/login"
     login_data = {
         "username": "lixiaofeng",
@@ -33,19 +34,21 @@ def test_token():
     }
     # 登录获取token
     login_res = requests.post(login_url, login_data)
-    data = json.loads(decrypt(login_res.json().get("result")))
-    token = data.get("access_token")
-    if token:
+    result = login_res.json().get("result")
+    if result:
+        data = json.loads(decrypt(result))
+        token = data.get("access_token")
         logger.info(f"登录接口 -->> token：{token}")
         os.environ["token"] = token
     yield
     # 退出登录
-    logout_url = host + "/users/logout"
-    logout_headers = {
-        "Authorization": f"Bearer {token}"
-    }
-    logout_res = requests.post(logout_url, headers=logout_headers)
-    logger.info(f"退出登录接口 -->> 返回值： {logout_res.json()}")
+    if token:
+        logout_url = host + "/users/logout"
+        logout_headers = {
+            "Authorization": f"Bearer {token}"
+        }
+        logout_res = requests.post(logout_url, headers=logout_headers)
+        logger.info(f"退出登录接口 -->> 返回值： {logout_res.json()}")
 
 
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
