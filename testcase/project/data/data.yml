@@ -1,6 +1,6 @@
 test_create_project_case:
   case_step_1:
-    path: /sign
+    path: /sign/
     method: get
     variable:
       sign: true
@@ -19,7 +19,7 @@ test_create_project_case:
     title: 获取所有签名列表接口
     step: 获取所有签名列表接口测试
     description: 该用例是针对 获取所有签名列表接口 的测试
-  path: /project
+  path: /project/
   method: post
   variable:
     sign: false

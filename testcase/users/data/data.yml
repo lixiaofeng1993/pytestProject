@@ -38,7 +38,7 @@ test_user_me_case:
   description: 该用例是针对 获取登录用户信息接口 的测试
 
 test_all_user_case:
-  path: /users
+  path: /users/
   method: get
   headers:
     Authorization: Bearer {{ token() }}
