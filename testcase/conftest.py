@@ -7,11 +7,9 @@
 # @Version：V 0.1
 # @desc :
 import json
-
 import pytest
 import requests
 import os
-import time
 
 from public.read_data import ReadFileData
 from public.sign import decrypt
