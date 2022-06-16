@@ -26,7 +26,7 @@ test_create_project_case:
     query_name: sql_query_name
   headers:
     Authorization: Bearer {{ token() }}
-  parametrize: {{ load_csv("project/data/parametrize_project.csv") }}
+  parametrize: {{ load_csv("EasyTest/project/data/parametrize_project.csv") }}
   params:
   data:
   upload:

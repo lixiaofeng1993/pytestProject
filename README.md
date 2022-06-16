@@ -22,6 +22,13 @@
 * allure工具安装
     * 项目目录 tools/allure-2.13.6.rar 文件，解压并配置 bin 目录环境变量即可
 
+
+## 区分不同项目域名
+* setting.ini 中可配置不同项目名称 例：`[EasyTest]`
+* testcase 目录下新增不同的项目目录名称 
+* **setting.ini 和 testcase 目录 下的项目名称必须一致**
+* 若同一个项目中有不同的域名，输入接口的完整路径即可
+
 ## 新增用例步骤
 
 * 在 testcase/ 目录下新建对应页面的目录
@@ -46,11 +53,13 @@
     from public.send_request import SendRequest  # 处理http请求
     from public.log import logger  # 日志
     from public.sql_to_data import SqlToData  # 处理测试用例数据
-    from public.help import get_data_path, os, fun_name, report_setting, report_step_setting, allure
-    
-    data_path = get_data_path(os.path.dirname(__file__))  # 返回当前文件的绝对路径
-    test_params = SqlToData().yaml_db_query(data_path)  # 返回处理后的测试数据
-    
+    from public.help import get_data_path, get_project_name, os, fun_name, report_setting, report_step_setting, allure
+
+    case_path = os.path.dirname(__file__)
+    project_name = get_project_name(case_path) # 项目名称
+    data_path = get_data_path(case_path)  # 返回当前文件的绝对路径
+    test_params = SqlToData().yaml_db_query(data_path) # 返回处理后的测试数据
+
     
     @allure.severity(allure.severity_level.TRIVIAL)  # 测试类等级
     @allure.epic(test_params.get("epic"))  # allure报告一级目录
@@ -58,7 +67,7 @@
     class TestContinentInfo:  # 测试类
     
         def setup_class(self):
-            self.extract = {}  # 全局变量
+            self.extract = {"project_name": project_name}  # 全局变量
         
         # 参数化
         @pytest.mark.parametrize("data", test_params["test_page_query_case"].parametrize)  # pytest参数化装饰器

@@ -9,13 +9,15 @@
 import json
 import pytest
 import requests
-import os
 
 from public.read_data import ReadFileData
 from public.sign import decrypt
 from public.log import logger
 from public.send_ding import send_ding
 from public.exceptions import ResponseError
+from public.help import get_project_name, os
+
+project_name = get_project_name(os.path.abspath(__file__))
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -24,7 +26,7 @@ def test_token():
     前置获取token，后置销毁token
     """
     read = ReadFileData()
-    host = read.get_host()
+    host = read.get_host(name=project_name)
     login_url = host + "/users/login"
     login_data = {
         "username": "lixiaofeng",

@@ -22,7 +22,7 @@ class SendRequest:
         self.send = BaseRequest()
         self.test_data = test_data
         self.extract = extract
-        self.extract.update(self.read.get_variable()) if not self.extract else self.extract
+        self.extract.update(self.read.get_variable())
 
     def send_request(self):
         variable = self.test_data.variable if self.test_data.variable else {}
@@ -58,7 +58,8 @@ class SendRequest:
         data = recursion_handle(data, self.extract)
         json = recursion_handle(json, self.extract)
         validate = recursion_handle(validate, self.extract)
-        url = self.read.get_host() + path if "http" not in path else path
+        project_name = self.extract.get("project_name")
+        url = self.read.get_host(name=project_name) + path if "http" not in path else path
         result = self.send.request(url=url, method=method, headers=headers, params=params, data=data, json=json,
                                    files=upload)
         if self.extract.get("sign"):

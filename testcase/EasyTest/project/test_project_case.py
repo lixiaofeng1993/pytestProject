@@ -10,9 +10,11 @@ import pytest
 from public.send_request import SendRequest
 from public.log import logger
 from public.sql_to_data import SqlToData
-from public.help import get_data_path, os, fun_name, report_setting, report_step_setting, allure
+from public.help import get_data_path, get_project_name, os, fun_name, report_setting, report_step_setting, allure
 
-data_path = get_data_path(os.path.dirname(__file__))
+case_path = os.path.dirname(__file__)
+project_name = get_project_name(case_path)
+data_path = get_data_path(case_path)
 test_params = SqlToData().yaml_db_query(data_path)
 
 
@@ -22,7 +24,7 @@ test_params = SqlToData().yaml_db_query(data_path)
 class TestProjectCase:
 
     def setup_class(self):
-        self.extract = {}
+        self.extract = {"project_name": project_name}
 
     @pytest.mark.run(order=1)
     @pytest.mark.parametrize("data", test_params["test_create_project_case"].parametrize)

@@ -104,7 +104,7 @@ test_user_register_case:
     query_email: sql_query_email
   headers:
   #  parametrize: ${parametrize_register.csv}
-  parametrize: {{ load_csv("users/data/parametrize_register.csv") }}
+  parametrize: {{ load_csv("EasyTest/users/data/parametrize_register.csv") }}
   params:
   json:
   upload:

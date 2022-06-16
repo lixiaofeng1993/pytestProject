@@ -175,12 +175,13 @@ class ReadFileData:
         }
         return db_conf
 
-    def get_host(self) -> str:
+    def get_host(self, name: str = "EasyTest") -> str:
         """
         默认返回测试环境host
+        :param name: 项目名称
         :return:
         """
-        data = self.load_setting_ini()["host"]
+        data = self.load_setting_ini()[name]
         flag = self.get_flag()
         host = data["test_host"] if flag == "0" else data["host"]
         return host

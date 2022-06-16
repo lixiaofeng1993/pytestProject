@@ -114,6 +114,17 @@ def get_data_path(path: str) -> str:
     return check(data_path)
 
 
+def get_project_name(path: str) -> str:
+    """
+    返回 project_name
+    :param path: 执行文件路径
+    :return:
+    """
+    path_list = path.split(patt)
+    project_name = path_list[-2]
+    return project_name
+
+
 def mkdir(path) -> str:
     """
     检查目录是否存在，不存在则创建
