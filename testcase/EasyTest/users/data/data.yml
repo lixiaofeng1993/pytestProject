@@ -49,7 +49,7 @@ test_all_user_case:
   params:
   upload:
   extract:
-    user_id: $.result[0].id
+    user_id: $.result[?(@.is_superuser != True)].id
   validate:
     - [ comparator: equal, check: is_delete, expect: False, jsonpath: "$.result[0].is_delete" ]
   story: 用例-获取所有用户信息接口
