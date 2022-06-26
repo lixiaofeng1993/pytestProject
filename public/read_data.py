@@ -26,7 +26,15 @@ class MyConfigParser(ConfigParser):
         return optionstr
 
 
-class ReadFileData:
+class BaseRead:
+    # 单例
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(cls, "_instance"):
+            cls._instance = super(BaseRead, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+
+
+class ReadFileData(BaseRead):
 
     def __init__(self):
         pass
@@ -218,4 +226,3 @@ class ReadFileData:
 
 if __name__ == '__main__':
     data = ReadFileData()
-    print(data.load_yaml(r"E:\project\pytestProject\testcase\project\data\data.yml"))
