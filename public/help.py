@@ -20,6 +20,17 @@ BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 patt = "\\" if platform.system() == "Windows" else "/"
 
 
+class Singleton:
+    """
+    单例父类
+    """
+
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(cls, '_instance'):
+            cls._instance = super(Singleton, cls).__new__(cls)
+        return cls._instance
+
+
 def report_setting(data):
     """
     allure 报告目录

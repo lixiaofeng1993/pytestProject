@@ -11,11 +11,11 @@
 
 from public.common import recursion_handle, extract_variables, upload_file, parametrize_validate, validators_result, \
     not_empty, encrypted_result
-from public.read_data import ReadFileData
+from public.read_data import ReadFileData, Singleton
 from base.bae_request import BaseRequest
 
 
-class SendRequest:
+class SendRequest(Singleton):
 
     def __init__(self, test_data, extract):
         self.read = ReadFileData()

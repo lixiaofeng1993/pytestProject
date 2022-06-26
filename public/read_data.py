@@ -26,15 +26,7 @@ class MyConfigParser(ConfigParser):
         return optionstr
 
 
-class BaseRead:
-    # 单例
-    def __new__(cls, *args, **kwargs):
-        if not hasattr(cls, "_instance"):
-            cls._instance = super(BaseRead, cls).__new__(cls, *args, **kwargs)
-        return cls._instance
-
-
-class ReadFileData(BaseRead):
+class ReadFileData(Singleton):
 
     def __init__(self):
         pass
