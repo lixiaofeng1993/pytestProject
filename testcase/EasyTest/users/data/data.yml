@@ -25,8 +25,8 @@ test_user_me_case:
   headers:
     Authorization: Bearer {{ token() }}
   variable:
-    sign: true
-    sign_path: $.result
+  #    sign: true
+  #    sign_path: $.result
   parametrize:
   params:
   upload:
@@ -43,8 +43,8 @@ test_all_user_case:
   headers:
     Authorization: Bearer {{ token() }}
   variable:
-    sign: true
-    sign_path: $.result
+  #    sign: true
+  #    sign_path: $.result
   parametrize:
   params:
   upload:
@@ -63,8 +63,8 @@ test_one_user_case:
   headers:
     Authorization: Bearer {{ token() }}
   variable:
-    sign: true
-    sign_path: $.result
+  #    sign: true
+  #    sign_path: $.result
   parametrize:
   params:
   upload:
@@ -82,8 +82,8 @@ test_delete_user_case:
   headers:
     Authorization: Bearer {{ token() }}
   variable:
-    sign: true
-    sign_path: $.result
+  #    sign: true
+  #    sign_path: $.result
   parametrize:
   params:
   upload:

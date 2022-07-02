@@ -3,8 +3,8 @@ test_create_project_case:
     path: /sign/
     method: get
     variable:
-      sign: true
-      sign_path: $.result
+#      sign: true
+#      sign_path: $.result
     headers:
       Authorization: Bearer {{ token() }}
     parametrize:

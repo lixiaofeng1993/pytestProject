@@ -37,7 +37,8 @@ def test_token():
     result = login_res.json().get("result")
     if not result:
         raise ResponseError(f"登录接口返回出现异常 -->> {login_res.json()}")
-    data = json.loads(decrypt(result))
+    # data = json.loads(decrypt(result))
+    data = result
     token = data.get("access_token")
     logger.info(f"登录接口 -->> token：{token}")
     os.environ["token"] = token

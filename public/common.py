@@ -62,7 +62,7 @@ def query_replace_variable(value, variables, data_value, key=None, data_type="st
     """
     variable_regexp = r"(\$[\w_\+]+)"
     patt = re.findall(variable_regexp, value)
-    csv_regexp = r"\${([\w_\.csv]+)}" # 递归替换yml文件中引用csv文件数据，被jinja2方式取代
+    csv_regexp = r"\${([\w_\.csv]+)}"  # 递归替换yml文件中引用csv文件数据，被jinja2方式取代
     csv_patt = re.findall(csv_regexp, value)
     real_value = ""
     if csv_patt:
