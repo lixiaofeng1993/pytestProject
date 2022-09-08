@@ -37,10 +37,13 @@ def report_setting(data):
     """
     title = data.title
     if data.parametrize:
-        for params in data.parametrize:
-            if isinstance(params, dict):
-                if params.get("case_name"):
-                    title = params["case_name"]
+        if isinstance(data.parametrize, dict):
+            title = data.parametrize["case_name"]
+        elif isinstance(data.parametrize, list):
+            for params in data.parametrize:
+                if isinstance(params, dict):
+                    if params.get("case_name"):
+                        title = params["case_name"]
     allure.dynamic.story(data.story)
     allure.dynamic.title(title)
     allure.dynamic.description(data.description)
@@ -69,18 +72,18 @@ def check(path):
     return path
 
 
-def get_csv_path(path: str, file_name: str) -> str:
+def get_parametrize_path(path: str, file_name: str) -> str:
     """
-    返回csv文件完整路径
+    返回 csv,json 文件完整路径
     :param path:
     :param file_name:
     :return:
     """
     if os.path.isfile(file_name):
-        csv_path = file_name
+        parametrize_path = file_name
     else:
-        csv_path = path.replace("data.yml", file_name)
-    return check(csv_path)
+        parametrize_path = path.replace("data.yml", file_name)
+    return check(parametrize_path)
 
 
 def fun_name() -> str:

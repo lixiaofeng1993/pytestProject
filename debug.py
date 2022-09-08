@@ -8,7 +8,8 @@
 # @desc :
 import io
 import csv
-import os.path
+import json
+import os
 
 from public.help import check, CASE_PATH
 from public import exceptions
@@ -67,3 +68,20 @@ def load_csv(file_path: str) -> list:
             parametrize_list.append(parametrize)
     # logger.info(f"读到数据 ==>>  {parametrize_list} ")
     return parametrize_list
+
+
+def load_json(file_path: str) -> (dict or list):
+    """
+    加载json文件数据
+    :param file_path: 文件路径
+    :return:
+    """
+    file_path = os.path.join(CASE_PATH, file_path)
+    # logger.info(f"加载 {file_path} 文件......")
+    with open(check(file_path), encoding='utf-8') as f:
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError as ex:
+            raise exceptions.FileFormatError("file: {} error: {}".format(file_path, ex))
+    # logger.info(f"读到数据 ==>>  {data} ")
+    return data

@@ -3,8 +3,8 @@ test_create_project_case:
     path: /sign/
     method: get
     variable:
-#      sign: true
-#      sign_path: $.result
+    #      sign: true
+    #      sign_path: $.result
     headers:
       Authorization: Bearer {{ token() }}
     parametrize:
@@ -26,13 +26,15 @@ test_create_project_case:
     query_name: sql_query_name
   headers:
     Authorization: Bearer {{ token() }}
-  parametrize: {{ load_csv("EasyTest/project/data/parametrize_project.csv") }}
+  parametrize: {{ load_json("EasyTest/project/data/parametrize_project.json") }}
+  #  parametrize: ${parametrize_project.csv}
+  #  parametrize: {{ load_csv("EasyTest/project/data/parametrize_project.csv") }}
   params:
   data:
   upload:
   extract:
   validate:
-#    - [ comparator: equal, check: name, expect: {{ username() }}, jsonpath: "$.name" ]
+  #    - [ comparator: equal, check: name, expect: {{ username() }}, jsonpath: "$.name" ]
   story: 用例-创建项目接口
   title: 创建项目接口
   step: 创建项目接口测试

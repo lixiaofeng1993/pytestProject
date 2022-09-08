@@ -38,7 +38,7 @@ class TestUsersCase:
         report_setting(test_data)
         logger.info("*************** 结束执行用例 ***************\n")
 
-    @pytest.mark.run(order=1)
+    @pytest.mark.run(order=2)
     def test_user_me_case(self, test_data):
         logger.info("*************** 开始执行用例 ***************")
         # 报告展示的测试步骤
@@ -50,7 +50,7 @@ class TestUsersCase:
         report_setting(test_data)
         logger.info("*************** 结束执行用例 ***************\n")
 
-    @pytest.mark.run(order=1)
+    @pytest.mark.run(order=3)
     def test_all_user_case(self, test_data):
         logger.info("*************** 开始执行用例 ***************")
         # 报告展示的测试步骤
@@ -62,7 +62,7 @@ class TestUsersCase:
         report_setting(test_data)
         logger.info("*************** 结束执行用例 ***************\n")
 
-    @pytest.mark.run(order=1)
+    @pytest.mark.run(order=4)
     def test_one_user_case(self, test_data):
         logger.info("*************** 开始执行用例 ***************")
         # 报告展示的测试步骤
@@ -74,7 +74,7 @@ class TestUsersCase:
         report_setting(test_data)
         logger.info("*************** 结束执行用例 ***************\n")
 
-    @pytest.mark.run(order=1)
+    @pytest.mark.run(order=5)
     def test_delete_user_case(self, test_data):
         logger.info("*************** 开始执行用例 ***************")
         # 报告展示的测试步骤

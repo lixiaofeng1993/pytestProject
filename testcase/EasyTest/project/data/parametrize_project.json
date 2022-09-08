@@ -1,0 +1,70 @@
+[
+  {
+    "case_name": "创建成功",
+    "data": {
+      "name": "__word",
+      "description": "__text",
+      "sign_id": "$sign_id",
+      "users_id": ""
+    },
+    "validate": [
+      {
+        "comparator": "equal",
+        "check": "status_code",
+        "expect": "200",
+        "jsonpath": ""
+      }
+    ]
+  },
+  {
+    "case_name": "name不符合格式",
+    "data": {
+      "name": "",
+      "description": "__text",
+      "sign_id": "$sign_id",
+      "users_id": ""
+    },
+    "validate": [
+      {
+        "comparator": "equal",
+        "check": "code",
+        "expect": "10008",
+        "jsonpath": "$.detail.code"
+      }
+    ]
+  },
+  {
+    "case_name": "name已存在",
+    "data": {
+      "name": "$query_name",
+      "description": "__text",
+      "sign_id": "$sign_id",
+      "users_id": ""
+    },
+    "validate": [
+      {
+        "comparator": "equal",
+        "check": "code",
+        "expect": "10007",
+        "jsonpath": "$.detail.code"
+      }
+    ]
+  },
+  {
+    "case_name": "sign_id不存在",
+    "data": {
+      "name": "__word",
+      "description": "__text",
+      "sign_id": "",
+      "users_id": ""
+    },
+    "validate": [
+      {
+        "comparator": "equal",
+        "check": "status_code",
+        "expect": "200",
+        "jsonpath": ""
+      }
+    ]
+  }
+]

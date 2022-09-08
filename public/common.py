@@ -19,7 +19,7 @@ from public.oracle_operate import OracleDb
 from public.mysql_operate import MysqlDb
 from public.random_params import random_params
 from public import exceptions
-from public.help import file_obj, error_msg, get_csv_path
+from public.help import file_obj, error_msg, get_parametrize_path
 from public.read_data import ReadFileData
 from public.sign import decrypt
 
@@ -62,21 +62,11 @@ def query_replace_variable(value, variables, data_value, key=None, data_type="st
     """
     variable_regexp = r"(\$[\w_\+]+)"
     patt = re.findall(variable_regexp, value)
-    csv_regexp = r"\${([\w_\.csv]+)}"  # 递归替换yml文件中引用csv文件数据，被jinja2方式取代
+    csv_regexp = r"\${([\w_]+\.csv)}"  # 递归替换yml文件中引用csv文件数据，被jinja2方式取代
+    json_regexp = r"\${([\w_]+\.json)}"  # 递归替换yml文件中引用csv文件数据，被jinja2方式取代
     csv_patt = re.findall(csv_regexp, value)
+    json_patt = re.findall(json_regexp, value)
     real_value = ""
-    if csv_patt:
-        for csv_value in csv_patt:  # csv参数化数据替换
-            if csv_value:
-                _value_list = csv_value.split(".")
-                if _value_list[-1] != "csv":
-                    raise exceptions.ParametrizeValidateError("csv 参数化文件名称配置错误！")
-                csv_path = get_csv_path(file_path, csv_value)
-                read = ReadFileData()
-                real_value = read.load_csv(csv_path)
-            data_value[key] = real_value
-            # logger.info(f"提取替换的数据 ==>> {key} -> {real_value}")
-            return data_value
     if variables:
         if "sql_" in value:  # sql查询替换
             if value[:3] != "sql":
@@ -100,6 +90,31 @@ def query_replace_variable(value, variables, data_value, key=None, data_type="st
                 real_value = variables.get(_value)
                 data_value = replace_variable(real_value, patt_value, data_value, value, key)
         return data_value
+    else:
+        if csv_patt:
+            for csv_value in csv_patt:  # csv参数化数据替换
+                if csv_value:
+                    _value_list = csv_value.split(".")
+                    if _value_list[-1] != "csv":
+                        raise exceptions.ParametrizeValidateError("csv 参数化文件名称配置错误！")
+                    csv_path = get_parametrize_path(file_path, csv_value)
+                    read = ReadFileData()
+                    real_value = read.load_csv(csv_path)
+                data_value[key] = real_value
+                # logger.info(f"提取替换的数据 ==>> {key} -> {real_value}")
+                return data_value
+        if json_patt:
+            for json_value in json_patt:  # csv参数化数据替换
+                if json_value:
+                    _value_list = json_value.split(".")
+                    if _value_list[-1] != "json":
+                        raise exceptions.ParametrizeValidateError("json 参数化文件名称配置错误！")
+                    json_path = get_parametrize_path(file_path, json_value)
+                    read = ReadFileData()
+                    real_value = read.load_json(json_path)
+                data_value[key] = real_value
+                # logger.info(f"提取替换的数据 ==>> {key} -> {real_value}")
+                return data_value
 
 
 def recursion_handle(data_value, variables, file_path=None):
@@ -171,15 +186,18 @@ def parametrize_validate(parametrize):
     :param parametrize: 接口参数化数据
     :return:
     """
-    params = dict()
-    validate = []
-    for param in parametrize:
-        if isinstance(param, dict):
-            for key, value in param.items():
-                if key == "validate":
-                    validate = value
-                elif key != "case_name":
-                    params.update(param)
+    params, validate = dict(), list()
+    if isinstance(parametrize, list):
+        for param in parametrize:
+            if isinstance(param, dict):
+                for key, value in param.items():
+                    if key == "validate":
+                        validate = value
+                    elif key != "case_name":
+                        params.update(param)
+    elif isinstance(parametrize, dict):
+        params = parametrize["data"]
+        validate = parametrize["validate"]
     return validate, params
 
 
